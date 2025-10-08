@@ -10,7 +10,7 @@ const FriendsSidebar = ({ onSelectFriend, selectedUser }) => {
     const fetchFriends = async () => {
       try {
         const res = await fetch(
-          "http://localhost:5000/api/friends/getfriends ",
+          "https://lingolive.onrender.com/api/friends/getfriends ",
           {
             credentials: "include",
           }

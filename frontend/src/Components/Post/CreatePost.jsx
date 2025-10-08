@@ -83,7 +83,7 @@ const CreatePost = () => {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/posts", {
+      const res = await fetch("https://lingolive.onrender.com/api/posts", {
         method: "POST",
         body: formData,
         credentials: "include",

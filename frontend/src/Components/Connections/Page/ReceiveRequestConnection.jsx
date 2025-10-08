@@ -13,7 +13,7 @@ const ReceiveRequestConnection = () => {
 
   const handleAcceptRequest = async (requestId) => {
     try {
-      const res = await fetch("http://localhost:5000/api/friends/accept-request", {
+      const res = await fetch("https://lingolive.onrender.com/api/friends/accept-request", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -32,7 +32,7 @@ const ReceiveRequestConnection = () => {
 
   const handleRejectRequest = async (requestId) => {
     try {
-      const res = await fetch("http://localhost:5000/api/friends/reject-request", {
+      const res = await fetch("https://lingolive.onrender.com/api/friends/reject-request", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

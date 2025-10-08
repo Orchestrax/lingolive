@@ -15,7 +15,7 @@ export const SocketProvider = ({ children }) => {
 
   useEffect(() => {
     if (user?._id) {
-      const newSocket = io("http://localhost:5000", {
+      const newSocket = io("https://lingolive.onrender.com", {
         query: { userId: user._id },
         withCredentials: true,
       });

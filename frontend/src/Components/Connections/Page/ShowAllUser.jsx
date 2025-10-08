@@ -30,7 +30,7 @@ const ShowAllUser = () => {
   const handleSendFriendRequest = async (userId) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/friends/send-request`,
+        `https://lingolive.onrender.com/api/friends/send-request`,
         {
           method: "POST",
           headers: {

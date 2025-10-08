@@ -21,7 +21,7 @@ const User_Profile = () => {
     try {
       if (!id) return;
       const res = await fetch(
-        `http://localhost:5000/api/friends/getfriend/${id}`,
+        `https://lingolive.onrender.com/api/friends/getfriend/${id}`,
         {
           method: "GET",
           headers: {
@@ -45,7 +45,7 @@ const User_Profile = () => {
   const handleLike = async (postId) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/posts/${postId}/likeandunlike`,
+        `https://lingolive.onrender.com/api/posts/${postId}/likeandunlike`,
         {
           method: "POST",
           headers: {

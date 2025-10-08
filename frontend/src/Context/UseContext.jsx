@@ -21,7 +21,7 @@ export const AppProvider = ({ children }) => {
 
   const fetchUser = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/auth/me", {
+      const response = await fetch("https://lingolive.onrender.com/api/auth/me", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -45,7 +45,7 @@ export const AppProvider = ({ children }) => {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/posts", {
+      const response = await fetch("https://lingolive.onrender.com/api/posts", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -64,7 +64,7 @@ export const AppProvider = ({ children }) => {
   const fetchComments = async () => {
     try {
       const res = await fetch(
-        `http://localhost:5000/api/posts/${commentIdForFetching}/comment`,
+        `https://lingolive.onrender.com/api/posts/${commentIdForFetching}/comment`,
         {
           method: "GET",
           headers: {
@@ -83,7 +83,7 @@ export const AppProvider = ({ children }) => {
 
   const fetchAllUser = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/auth/AllUser", {
+      const res = await fetch("https://lingolive.onrender.com/api/auth/AllUser", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -100,7 +100,7 @@ export const AppProvider = ({ children }) => {
 
   const fetchFriendRequests = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/friends/requests", {
+      const res = await fetch("https://lingolive.onrender.com/api/friends/requests", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -117,7 +117,7 @@ export const AppProvider = ({ children }) => {
 
   const fetchFriendlist = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/friends/list", {
+      const res = await fetch("https://lingolive.onrender.com/api/friends/list", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -135,7 +135,7 @@ export const AppProvider = ({ children }) => {
 
   const fetchNotifications = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/notifications", {
+      const res = await fetch("https://lingolive.onrender.com/api/notifications", {
         credentials: "include",
       });
       const data = await res.json();

@@ -28,7 +28,7 @@ const ChatPage = ({ selectedUser, onOpenSidebar }) => {
     const fetchMessages = async () => {
       try {
         const res = await fetch(
-          `http://localhost:5000/api/messages/${selectedUser._id}`,
+          `https://lingolive.onrender.com/api/messages/${selectedUser._id}`,
           {
             credentials: "include",
           }
@@ -78,7 +78,7 @@ const ChatPage = ({ selectedUser, onOpenSidebar }) => {
       if (media.audio) formData.append("audio", media.audio);
       if (media.file) formData.append("file", media.file);
 
-      const res = await fetch("http://localhost:5000/api/messages", {
+      const res = await fetch("https://lingolive.onrender.com/api/messages", {
         method: "POST",
         credentials: "include",
         body: formData,

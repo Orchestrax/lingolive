@@ -12,7 +12,7 @@ const Comment = ({ id }) => {
   const handleComment = async () => {
     if (!comment.trim()) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/posts/${id}/comment`, {
+      const res = await fetch(`https://lingolive.onrender.com/api/posts/${id}/comment`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -39,7 +39,7 @@ const Comment = ({ id }) => {
 
   const handleDeleteComment = async (commentId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/posts/${id}/comment/${commentId}`, {
+      const res = await fetch(`https://lingolive.onrender.com/api/posts/${id}/comment/${commentId}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

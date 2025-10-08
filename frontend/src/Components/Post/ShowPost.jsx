@@ -62,7 +62,7 @@ const ShowPost = () => {
   const handleLike = async (postId) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/posts/${encodeURIComponent(
+        `https://lingolive.onrender.com/api/posts/${encodeURIComponent(
           postId
         )}/likeandunlike`,
         {

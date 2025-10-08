@@ -122,7 +122,7 @@ const ProfileUpdate = () => {
   const handleSaveEdit = async () => {
     if (!editPostId) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/posts/${editPostId}`, {
+      const res = await fetch(`https://lingolive.onrender.com/api/posts/${editPostId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -150,7 +150,7 @@ const ProfileUpdate = () => {
   // Delete post
   const handleDelete = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/posts/${id}`, {
+      const res = await fetch(`https://lingolive.onrender.com/api/posts/${id}`, {
         method: "DELETE",
         credentials: "include",
       });
@@ -177,7 +177,7 @@ const ProfileUpdate = () => {
   const handleLike = async (postId) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/posts/${postId}/likeandunlike`,
+        `https://lingolive.onrender.com/api/posts/${postId}/likeandunlike`,
         {
           method: "POST",
           headers: {
@@ -238,7 +238,7 @@ const ProfileUpdate = () => {
       };
 
       const response = await fetch(
-        "http://localhost:5000/api/auth/updateprofile",
+        "https://lingolive.onrender.com/api/auth/updateprofile",
         {
           method: "PUT",
           headers: {
@@ -274,7 +274,7 @@ const ProfileUpdate = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/auth/upload-${type}-pic`,
+        `https://lingolive.onrender.com/api/auth/upload-${type}-pic`,
         {
           method: "POST",
           credentials: "include",

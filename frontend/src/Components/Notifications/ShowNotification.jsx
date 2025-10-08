@@ -29,7 +29,7 @@ const ShowNotification = () => {
 
   const handleNotificationClick = async (n) => {
     try {
-      const res = await fetch("http://localhost:5000/api/notifications/read", {
+      const res = await fetch("https://lingolive.onrender.com/api/notifications/read", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ notificationId: n._id }),
