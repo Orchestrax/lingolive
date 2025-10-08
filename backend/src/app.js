@@ -14,6 +14,8 @@ import bodyParser from 'body-parser';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const _dirname = path.resolve();
+
 const app = express();
 
 app.use(cors({
@@ -28,13 +30,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Serve static files from public directory
-app.use('/uploads', express.static(path.join(__dirname, '../public/uploads')));
+app.use('/uploads', express.static(path.join(__dirname, '../public/uploads'))); 
+
 
 app.use("/api/auth", AuthRouter);
 app.use("/api/posts", PostRouter);
 app.use("/api/friends", FriendRouter);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/messages", messageRoutes);
+
+
+app.use(express.static(path.join(_dirname, "frontend", "dist")));
+
+app.get(/.*/, (req, res) => {
+  res.sendFile(path.resolve(_dirname, "frontend", "dist", "index.html"));
+});
+
 
 
 app.get('/', (req, res) => {
