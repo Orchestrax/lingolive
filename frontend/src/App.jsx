@@ -21,7 +21,6 @@ const App = () => {
   return (
     <div className="bg-gradient-to-br from-gray-900 via-gray-950 to-black min-h-screen text-gray-100">
       <Navbar />
-
       <Routes>
         <Route path="/" element={auth ? <Home /> : <Login />} />
         <Route path="/profile" element={auth ? <Profile /> : <Login />} />
