@@ -13,7 +13,7 @@ const Home = () => {
 
   if (!auth) {
     return (
-      <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-950 to-black flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-3xl font-bold mb-4">Welcome to Your Dashboard</h1>
           <p className="text-gray-400 mb-6">

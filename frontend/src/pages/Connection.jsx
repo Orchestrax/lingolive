@@ -18,7 +18,7 @@ const Connection = () => {
   ]
 
   return (
-    <div className='grid lg:grid-cols-4 sm:grid-cols-1 gap-4'>
+    <div className='grid lg:grid-cols-4 sm:grid-cols-1 gap-4 bg-gradient-to-br from-gray-900 via-gray-950 to-black min-h-screen text-white'>
       <div className='mt-5'>
         <Sidebar setdisplayName={setdisplayName} />
       </div>
