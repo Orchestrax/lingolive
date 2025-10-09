@@ -7,22 +7,22 @@ import {
   Network,
   Menu,
   X,
-  Eye
+  Eye,
 } from "lucide-react";
 import { useContext, useState } from "react";
 import AppContext from "../../Context/UseContext";
 
 const Navbar = () => {
-    const { auth, setUser, notifications } = useContext(AppContext);
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { auth, setUser, notifications } = useContext(AppContext);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    const handleLogout = async () => {
+  const handleLogout = async () => {
     try {
       await fetch("https://lingolive.onrender.com/api/auth/logout", {
         method: "POST",
         credentials: "include",
       });
-      localStorage.setItem("auth","false");
+      localStorage.setItem("auth", "false");
       setUser(null);
       window.location.href = "/login";
     } catch (error) {
@@ -36,192 +36,239 @@ const Navbar = () => {
 
   return (
     <nav className="flex items-center justify-between p-4 bg-gray-800">
-        <div className="w-full">
-          <div className="flex justify-between items-center h-10">
-            <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-amber-500">LingOLive</h1>
-            
-            {/* Desktop Navigation */}
-            <div className="hidden md:block">
-              {auth ? (
-                <div className="flex space-x-6 text-sm font-medium">
-                  <a
-                    href="/"
-                    className="flex items-center space-x-2 text-blue-400 hover:text-blue-300 transition-colors duration-200"
-                  >
-                    <HomeIcon className="w-5 h-5" />
-                    <span>Home</span>
-                  </a>
-                  <a className="flex items-center space-x-2 text-purple-400 hover:text-purple-300 transition-colors duration-200" href="/connections">
-                    <Network className="w-5 h-5" />
-                    <span>Connection</span>
-                  </a>
-                  <a href="/message" className="flex items-center space-x-2 text-green-400 hover:text-green-300 transition-colors duration-200">
-                    <MessageSquareMore className="w-5 h-5" />
-                    <span>Messages</span>
-                  </a>
-                  <a href="/posts"
+      <div className="w-full">
+        <div className="flex justify-between items-center h-10">
+          {/* <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-amber-500">LingOLive</h1> */}
+          /
+          <svg
+            width="320"
+            height="100"
+            viewBox="0 0 320 100"
+            xmlns="http://www.w3.org/2000/svg"
+            font-family="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
+          >
+            <text
+              x="20"
+              y="65"
+              font-size="55"
+              fill="#2c3e50"
+              font-weight="bold"
+            >
+              Lingo
+            </text>
+            <text
+              x="175"
+              y="65"
+              font-size="55"
+              fill="#1abc9c"
+              font-weight="bold"
+            >
+              live
+            </text>
+
+            <path
+              d="M 10 75 Q 70 45 150 70 C 180 80 220 70 280 50 Q 300 40 310 45"
+              stroke="#1abc9c"
+              stroke-width="4"
+              fill="none"
+              opacity="0.7"
+            />
+            <circle cx="285" cy="48" r="8" fill="#1abc9c" />
+          </svg>
+          {/* Desktop Navigation */}
+          <div className="hidden md:block">
+            {auth ? (
+              <div className="flex space-x-6 text-sm font-medium">
+                <a
+                  href="/"
+                  className="flex items-center space-x-2 text-blue-400 hover:text-blue-300 transition-colors duration-200"
+                >
+                  <HomeIcon className="w-5 h-5" />
+                  <span>Home</span>
+                </a>
+                <a
+                  className="flex items-center space-x-2 text-purple-400 hover:text-purple-300 transition-colors duration-200"
+                  href="/connections"
+                >
+                  <Network className="w-5 h-5" />
+                  <span>Connection</span>
+                </a>
+                <a
+                  href="/message"
+                  className="flex items-center space-x-2 text-green-400 hover:text-green-300 transition-colors duration-200"
+                >
+                  <MessageSquareMore className="w-5 h-5" />
+                  <span>Messages</span>
+                </a>
+                <a
+                  href="/posts"
                   className="flex items-center space-x-2 text-red-400 hover:text-red-300 transition-colors duration-200"
-                  >
-                    <Eye className="w-5 h-5" />
-                    <span>Posts</span>
-                  </a>
-                  <a
+                >
+                  <Eye className="w-5 h-5" />
+                  <span>Posts</span>
+                </a>
+                <a
                   href="/notifications"
                   className="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300 transition-colors duration-200"
-                  >
-                    <div className="relative">
-                      <Bell className="w-5 h-5" />
-                      <div className="h-2 w-2 bg-green-400 rounded-full absolute top-0 right-0 animate-bounce"></div>
-                    </div>
-                    <div className="">
-                      <span>Notifications</span>
-                      {notifications.length > 0 && (
-                        <span className="ml-1 bg-red-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full">
-                          {notifications.filter((u) => u.read === false).length}
-                        </span>
-                      )}
-                    </div>
-                  </a>
-                  <a
-                    href="/profile"
-                    className="flex items-center space-x-2 text-pink-400 hover:text-pink-300 transition-colors duration-200"
-                  >
-                    <UserIcon className="w-5 h-5 bg-white text-black rounded-full" />
-                    <span>Profile</span>
-                  </a>
-                  <button
-                    onClick={handleLogout}
-                    className="flex items-center space-x-2 text-red-400 hover:text-red-300 transition-colors duration-200"
-                  >
-                    <LogOut className="w-5 h-5" />
-                    <span>Logout</span>
-                  </button>
-                </div>
-              ) : (
-                <div className="flex items-center space-x-4">
-                  <button
-                    className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-2 rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-                    onClick={() => window.location.href = "/login"}
-                  >
-                    Login
-                  </button>
-                  <button
-                    className="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-2 rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-                    onClick={() => window.location.href = "/signup"}
-                  >
-                    Signup
-                  </button>
-                </div>
-              )}
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              className="md:hidden text-white p-2 rounded-lg bg-gray-700 hover:bg-gray-600 transition-colors duration-200"
-              onClick={toggleMobileMenu}
-            >
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+                >
+                  <div className="relative">
+                    <Bell className="w-5 h-5" />
+                    <div className="h-2 w-2 bg-green-400 rounded-full absolute top-0 right-0 animate-bounce"></div>
+                  </div>
+                  <div className="">
+                    <span>Notifications</span>
+                    {notifications.length > 0 && (
+                      <span className="ml-1 bg-red-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full">
+                        {notifications.filter((u) => u.read === false).length}
+                      </span>
+                    )}
+                  </div>
+                </a>
+                <a
+                  href="/profile"
+                  className="flex items-center space-x-2 text-pink-400 hover:text-pink-300 transition-colors duration-200"
+                >
+                  <UserIcon className="w-5 h-5 bg-white text-black rounded-full" />
+                  <span>Profile</span>
+                </a>
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center space-x-2 text-red-400 hover:text-red-300 transition-colors duration-200"
+                >
+                  <LogOut className="w-5 h-5" />
+                  <span>Logout</span>
+                </button>
+              </div>
+            ) : (
+              <div className="flex items-center space-x-4">
+                <button
+                  className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-2 rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                  onClick={() => (window.location.href = "/login")}
+                >
+                  Login
+                </button>
+                <button
+                  className="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-2 rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                  onClick={() => (window.location.href = "/signup")}
+                >
+                  Signup
+                </button>
+              </div>
+            )}
           </div>
-
-          {/* Mobile Navigation */}
-          {isMobileMenuOpen && (
-            <div className="md:hidden mt-4 bg-gray-700 rounded-lg p-4 animate-fade-in">
-              {auth ? (
-                <div className="flex flex-col space-y-4">
-                  <a
-                    href="/"
-                    className="flex items-center space-x-3 p-3 text-blue-400 hover:text-blue-300 hover:bg-gray-600 rounded-lg transition-all duration-200"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    <HomeIcon className="w-5 h-5" />
-                    <span>Home</span>
-                  </a>
-                  <a
-                  href="/connections" 
-                    className="flex items-center space-x-3 p-3 text-purple-400 hover:text-purple-300 hover:bg-gray-600 rounded-lg transition-all duration-200 text-left"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    <Network className="w-5 h-5" />
-                    <span>Connection</span>
-                  </a>
-                  <a 
-                    href="/message"
-                    className="flex items-center space-x-3 p-3 text-green-400 hover:text-green-300 hover:bg-gray-600 rounded-lg transition-all duration-200 text-left"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    <MessageSquareMore className="w-5 h-5" />
-                    <span>Messages</span>
-                  </a>
-                  <a href="/posts"
-                  className="flex items-center space-x-3 p-3 text-red-400 hover:text-red-300 transition-colors duration-200"
-                  >
-                    <Eye className="w-5 h-5" />
-                    <span>Posts</span>
-                  </a>
-                  <a href="/notifications"
-                    className="flex items-center space-x-3 p-3 text-yellow-400 hover:text-yellow-300 hover:bg-gray-600 rounded-lg transition-all duration-200 text-left"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    <div className="relative">
-                      <Bell className="w-5 h-5" />
-                      <div className="h-2 w-2 bg-green-400 rounded-full absolute top-0 right-0 animate-bounce"></div>
-                    </div>
-                    <div className="">
-                      <span>Notifications</span>
-                      {notifications.length > 0 && (
-                        <span className="ml-1 bg-red-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full">
-                          {notifications.filter((u) => u.read === false).length}
-                        </span>
-                      )}
-                    </div>
-                  </a>
-                  <a
-                    href="/profile"
-                    className="flex items-center space-x-3 p-3 text-pink-400 hover:text-pink-300 hover:bg-gray-600 rounded-lg transition-all duration-200"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    <UserIcon className="w-5 h-5 bg-white text-black rounded-full" />
-                    <span>Profile</span>
-                  </a>
-                  <button
-                    onClick={() => {
-                      handleLogout();
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="flex items-center space-x-3 p-3 text-red-400 hover:text-red-300 hover:bg-gray-600 rounded-lg transition-all duration-200 text-left"
-                  >
-                    <LogOut className="w-5 h-5" />
-                    <span>Logout</span>
-                  </button>
-                </div>
-              ) : (
-                <div className="flex flex-col space-y-3">
-                  <button
-                    className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-3 rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 text-center"
-                    onClick={() => {
-                      window.location.href = "/login";
-                      setIsMobileMenuOpen(false);
-                    }}
-                  >
-                    Login
-                  </button>
-                  <button
-                    className="bg-gradient-to-r from-green-500 to-green-600 text-white p-3 rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-200 text-center"
-                    onClick={() => {
-                      window.location.href = "/signup";
-                      setIsMobileMenuOpen(false);
-                    }}
-                  >
-                    Signup
-                  </button>
-                </div>
-              )}
-            </div>
-          )}
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden text-white p-2 rounded-lg bg-gray-700 hover:bg-gray-600 transition-colors duration-200"
+            onClick={toggleMobileMenu}
+          >
+            {isMobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
+          </button>
         </div>
-      </nav>
-  )
-}
 
-export default Navbar
+        {/* Mobile Navigation */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden mt-4 bg-gray-700 rounded-lg p-4 animate-fade-in">
+            {auth ? (
+              <div className="flex flex-col space-y-4">
+                <a
+                  href="/"
+                  className="flex items-center space-x-3 p-3 text-blue-400 hover:text-blue-300 hover:bg-gray-600 rounded-lg transition-all duration-200"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <HomeIcon className="w-5 h-5" />
+                  <span>Home</span>
+                </a>
+                <a
+                  href="/connections"
+                  className="flex items-center space-x-3 p-3 text-purple-400 hover:text-purple-300 hover:bg-gray-600 rounded-lg transition-all duration-200 text-left"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <Network className="w-5 h-5" />
+                  <span>Connection</span>
+                </a>
+                <a
+                  href="/message"
+                  className="flex items-center space-x-3 p-3 text-green-400 hover:text-green-300 hover:bg-gray-600 rounded-lg transition-all duration-200 text-left"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <MessageSquareMore className="w-5 h-5" />
+                  <span>Messages</span>
+                </a>
+                <a
+                  href="/posts"
+                  className="flex items-center space-x-3 p-3 text-red-400 hover:text-red-300 transition-colors duration-200"
+                >
+                  <Eye className="w-5 h-5" />
+                  <span>Posts</span>
+                </a>
+                <a
+                  href="/notifications"
+                  className="flex items-center space-x-3 p-3 text-yellow-400 hover:text-yellow-300 hover:bg-gray-600 rounded-lg transition-all duration-200 text-left"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <div className="relative">
+                    <Bell className="w-5 h-5" />
+                    <div className="h-2 w-2 bg-green-400 rounded-full absolute top-0 right-0 animate-bounce"></div>
+                  </div>
+                  <div className="">
+                    <span>Notifications</span>
+                    {notifications.length > 0 && (
+                      <span className="ml-1 bg-red-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full">
+                        {notifications.filter((u) => u.read === false).length}
+                      </span>
+                    )}
+                  </div>
+                </a>
+                <a
+                  href="/profile"
+                  className="flex items-center space-x-3 p-3 text-pink-400 hover:text-pink-300 hover:bg-gray-600 rounded-lg transition-all duration-200"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <UserIcon className="w-5 h-5 bg-white text-black rounded-full" />
+                  <span>Profile</span>
+                </a>
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="flex items-center space-x-3 p-3 text-red-400 hover:text-red-300 hover:bg-gray-600 rounded-lg transition-all duration-200 text-left"
+                >
+                  <LogOut className="w-5 h-5" />
+                  <span>Logout</span>
+                </button>
+              </div>
+            ) : (
+              <div className="flex flex-col space-y-3">
+                <button
+                  className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-3 rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 text-center"
+                  onClick={() => {
+                    window.location.href = "/login";
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
+                  Login
+                </button>
+                <button
+                  className="bg-gradient-to-r from-green-500 to-green-600 text-white p-3 rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-200 text-center"
+                  onClick={() => {
+                    window.location.href = "/signup";
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
+                  Signup
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;
