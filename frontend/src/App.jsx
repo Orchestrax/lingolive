@@ -19,7 +19,7 @@ const App = () => {
   const { auth } = useContext(AppContext);
 
   return (
-    <div className="bg-gray-900 min-h-screen text-gray-50">
+    <div className="bg-gradient-to-br from-gray-900 via-gray-950 to-black min-h-screen text-gray-100">
       <Navbar />
 
       <Routes>
