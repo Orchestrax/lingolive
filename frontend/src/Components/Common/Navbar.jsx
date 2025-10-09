@@ -39,7 +39,7 @@ const Navbar = () => {
       <div className="w-full">
         <div className="flex justify-between items-center h-10">
           {/* <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-amber-500">LingOLive</h1> */}
-          /
+          
           <svg
             width="320"
             height="100"
