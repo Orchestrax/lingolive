@@ -31,7 +31,7 @@ const Home = () => {
   }
 
   if(!user){
-    return <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
+    return <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-950 to-black text-white flex items-center justify-center">
       <div className="text-center">
         <Loader className="w-12 h-12 text-gray-500 animate-spin mx-auto mb-4" />
       </div>
@@ -39,7 +39,7 @@ const Home = () => {
   }
 
   return (
-    <div className="bg-gray-900 text-white">
+    <div className="bg-gradient-to-br from-gray-900 via-gray-950 to-black text-white">
       {/* Navigation Header */}
 
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
