@@ -102,7 +102,7 @@ const ShowPost = () => {
   }
 
   return (
-    <div className="max-w-5xl mx-auto text-white">
+    <div className="max-w-5xl mx-auto text-white mt-5">
       {posts?.length > 0 ? (
         <div className="space-y-6">
           {posts.map((post) => (
