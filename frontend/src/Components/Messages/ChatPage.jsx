@@ -6,6 +6,7 @@ import "remixicon/fonts/remixicon.css";
 const ChatPage = ({ selectedUser, onOpenSidebar }) => {
   const { messages, setMessages, onlineUsers } = useSocket();
   const [text, setText] = useState("");
+  const [editOn, setEditOn] = useState(false);
   const [media, setMedia] = useState({
     image: null,
     video: null,
@@ -171,14 +172,25 @@ const ChatPage = ({ selectedUser, onOpenSidebar }) => {
                   />
                 )}
                 <div
-                  className={`p-3 rounded-2xl break-words ${
+                  className={`py-3 px-4 rounded-2xl break-words ${
                     isOwn
                       ? "bg-blue-600 text-white rounded-br-none"
                       : "bg-gray-800 text-gray-100 rounded-bl-none"
                   } relative`}
                 >
-                  <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-blue-500 transition">
-                    <i className="ri-more-2-line" onClick={() => { deleteMessage(m._id) }}></i>
+                  <div className="absolute right-0 rounded-2xl border-2 border-transparent group-hover:border-blue-500 transition">
+                    <i className="ri-more-2-line" onClick={()=> setEditOn(!editOn)}></i>
+                    { editOn && (
+                      <div className="absolute top-0 right-0 mt-6 w-32 bg-gray-800 border border-gray-700 rounded shadow-lg z-10">
+                        <button
+                          onClick={() => {
+                            deleteMessage(m._id);
+                            setEditOn(false);
+                          }}
+                          className="w-full text-left px-4 py-2 hover:bg-gray-700"
+                        >Delete</button>
+                      </div>
+                    ) }
                   </div>
                   {m.image && (
                     <img
