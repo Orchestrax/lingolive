@@ -99,10 +99,13 @@ const ChatPage = ({ selectedUser, onOpenSidebar }) => {
 
   const deleteMessage = async (messageId) => {
     try {
-      const res = await fetch(`https://lingolive.onrender.com/api/messages/${messageId}`, {
-        method: "DELETE",
-        credentials: "include",
-      });
+      const res = await fetch(
+        `https://lingolive.onrender.com/api/messages/${messageId}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      );
       if (res.ok) {
         setMessages((prev) => prev.filter((msg) => msg._id !== messageId));
       }
@@ -153,6 +156,7 @@ const ChatPage = ({ selectedUser, onOpenSidebar }) => {
           const senderId =
             typeof m.sender === "object" ? m.sender._id : m.sender;
           const isOwn = senderId !== selectedUser._id;
+          const isMenuOpen = editOn === m._id; // active message dropdown
 
           return (
             <div
@@ -172,26 +176,46 @@ const ChatPage = ({ selectedUser, onOpenSidebar }) => {
                   />
                 )}
                 <div
-                  className={`py-3 px-4 rounded-2xl break-words ${
+                  className={`py-3 px-4 rounded-2xl break-words relative group ${
                     isOwn
                       ? "bg-blue-600 text-white rounded-br-none"
                       : "bg-gray-800 text-gray-100 rounded-bl-none"
-                  } relative`}
+                  }`}
                 >
-                  <div className="absolute right-0 rounded-2xl border-2 border-transparent group-hover:border-blue-500 transition">
-                    <i className="ri-more-2-line" onClick={()=> setEditOn(!editOn)}></i>
-                    { editOn && (
-                      <div className="absolute top-0 right-0 mt-6 w-32 bg-gray-800 border border-gray-700 rounded shadow-lg z-10">
-                        <button
-                          onClick={() => {
-                            deleteMessage(m._id);
-                            setEditOn(false);
-                          }}
-                          className="w-full text-left px-4 py-2 hover:bg-gray-700"
-                        >Delete</button>
-                      </div>
-                    ) }
-                  </div>
+                  {/* 3-dot menu button */}
+                  {isOwn && (
+                    <div className="absolute top-1 right-1">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setEditOn(isMenuOpen ? null : m._id);
+                        }}
+                        className="text-gray-300 hover:text-white transition"
+                      >
+                        <i className="ri-more-2-line text-lg"></i>
+                      </button>
+
+                      {/* Dropdown menu */}
+                      {isMenuOpen && (
+                        <div
+                          className="absolute right-0 mt-6 w-28 bg-gray-900 border border-gray-700 rounded-lg shadow-md z-20"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <button
+                            onClick={() => {
+                              deleteMessage(m._id);
+                              setEditOn(null);
+                            }}
+                            className="w-full text-left px-3 py-2 text-sm text-red-400 hover:bg-gray-800 rounded-t-lg"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Message content */}
                   {m.image && (
                     <img
                       src={m.image}
@@ -217,7 +241,7 @@ const ChatPage = ({ selectedUser, onOpenSidebar }) => {
                       📎 Download file
                     </a>
                   )}
-                  <p className="text-sm">{m.text}</p>
+                  {m.text && <p className="text-sm">{m.text}</p>}
 
                   <span className="text-[10px] text-gray-400 block mt-1 text-right">
                     {new Date(m.createdAt).toLocaleTimeString([], {
