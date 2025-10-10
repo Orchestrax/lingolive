@@ -88,8 +88,8 @@ const Navbar = () => {
                   <span>Home</span>
                 </Link>
                 <Link
-                  tosName="flex items-center space-x-2 text-purple-400 hover:text-purple-300 transition-colors duration-200"
-                  href="/connections"
+                  to="/connections"
+                  className="flex items-center space-x-2 text-purple-400 hover:text-purple-400 transition-colors duration-200"
                 >
                   <Network className="w-5 h-5" />
                   <span>Connection</span>
