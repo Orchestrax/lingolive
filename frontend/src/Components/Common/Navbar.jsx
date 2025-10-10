@@ -81,35 +81,35 @@ const Navbar = () => {
             {auth ? (
               <div className="flex space-x-6 text-sm font-medium">
                 <Link
-                  href="/"
+                  to="/"
                   className="flex items-center space-x-2 text-blue-400 hover:text-blue-300 transition-colors duration-200"
                 >
                   <HomeIcon className="w-5 h-5" />
                   <span>Home</span>
                 </Link>
                 <Link
-                  className="flex items-center space-x-2 text-purple-400 hover:text-purple-300 transition-colors duration-200"
+                  tosName="flex items-center space-x-2 text-purple-400 hover:text-purple-300 transition-colors duration-200"
                   href="/connections"
                 >
                   <Network className="w-5 h-5" />
                   <span>Connection</span>
                 </Link>
                 <Link
-                  href="/message"
+                  to="/message"
                   className="flex items-center space-x-2 text-green-400 hover:text-green-300 transition-colors duration-200"
                 >
                   <MessageSquareMore className="w-5 h-5" />
                   <span>Messages</span>
                 </Link>
                 <Link
-                  href="/posts"
+                  to="/posts"
                   className="flex items-center space-x-2 text-red-400 hover:text-red-300 transition-colors duration-200"
                 >
                   <Eye className="w-5 h-5" />
                   <span>Posts</span>
                 </Link>
                 <Link
-                  href="/notifications"
+                  to="/notifications"
                   className="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300 transition-colors duration-200"
                 >
                   <div className="relative">
@@ -126,7 +126,7 @@ const Navbar = () => {
                   </div>
                 </Link>
                 <Link
-                  href="/profile"
+                  to="/profile"
                   className="flex items-center space-x-2 text-pink-400 hover:text-pink-300 transition-colors duration-200"
                 >
                   <UserIcon className="w-5 h-5 bg-white text-black rounded-full" />
@@ -176,7 +176,7 @@ const Navbar = () => {
             {auth ? (
               <div className="flex flex-col space-y-4">
                 <Link
-                  href="/"
+                  to="/"
                   className="flex items-center space-x-3 p-3 text-blue-400 hover:text-blue-300 hover:bg-gray-600 rounded-lg transition-all duration-200"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
@@ -184,7 +184,7 @@ const Navbar = () => {
                   <span>Home</span>
                 </Link>
                 <Link
-                  href="/connections"
+                  to="/connections"
                   className="flex items-center space-x-3 p-3 text-purple-400 hover:text-purple-300 hover:bg-gray-600 rounded-lg transition-all duration-200 text-left"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
@@ -192,7 +192,7 @@ const Navbar = () => {
                   <span>Connection</span>
                 </Link>
                 <Link
-                  href="/message"
+                  to="/message"
                   className="flex items-center space-x-3 p-3 text-green-400 hover:text-green-300 hover:bg-gray-600 rounded-lg transition-all duration-200 text-left"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
@@ -200,14 +200,14 @@ const Navbar = () => {
                   <span>Messages</span>
                 </Link>
                 <Link
-                  href="/posts"
+                  to="/posts"
                   className="flex items-center space-x-3 p-3 text-red-400 hover:text-red-300 transition-colors duration-200"
                 >
                   <Eye className="w-5 h-5" />
                   <span>Posts</span>
                 </Link>
                 <Link
-                  href="/notifications"
+                  to="/notifications"
                   className="flex items-center space-x-3 p-3 text-yellow-400 hover:text-yellow-300 hover:bg-gray-600 rounded-lg transition-all duration-200 text-left"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
@@ -225,7 +225,7 @@ const Navbar = () => {
                   </div>
                 </Link>
                 <Link
-                  href="/profile"
+                  to="/profile"
                   className="flex items-center space-x-3 p-3 text-pink-400 hover:text-pink-300 hover:bg-gray-600 rounded-lg transition-all duration-200"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
