@@ -60,7 +60,7 @@ const ReceiveRequestConnection = () => {
           >
             <div className="h-24 w-full overflow-hidden">
               <img
-                src={req.sender.coverPic || "/default-cover.jpg"}
+                src={req.sender.coverPic || "/cover.jpg"}
                 alt="Cover"
                 className="w-full h-full object-cover"
               />

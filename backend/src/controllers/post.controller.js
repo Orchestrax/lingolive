@@ -89,6 +89,23 @@ export const updatePost = asyncHandler(async (req, res) => {
 
     const updatedPost = await post.save();
 
+    // ✅ Real-time emit to all connected users
+    io.emit('updatePost', updatedPost);
+
+    // ✅ Notify friends
+    const loggedInUser = await User.findById(userId).populate('friends');
+    const friends = loggedInUser.friends || [];
+
+    for (const friend of friends) {
+        await createNotification({
+            toUser: friend._id,
+            type: 'post',
+            fromUser: userId,
+            post: updatedPost._id,
+            message: `${loggedInUser.username} updated a post`,
+        });
+    }
+
     res.status(200).json({
         message: 'Post updated successfully',
         success: true,
@@ -123,6 +140,23 @@ export const deletePost = asyncHandler(async (req, res) => {
             { $pull: { posts: postId } },
             { session }
         );
+
+        // ✅ Emit to all connected clients
+        io.emit('deletePost', { postId });
+
+        // ✅ Notify friends
+        const loggedInUser = await User.findById(userId).populate('friends');
+        const friends = loggedInUser.friends || [];
+
+        for (const friend of friends) {
+            await createNotification({
+                toUser: friend._id,
+                type: 'post',
+                fromUser: userId,
+                message: `${loggedInUser.username} deleted a post`,
+            });
+        }
+
         await session.commitTransaction();
         session.endSession();
 
@@ -148,7 +182,7 @@ export const likeAndUnlikePost = asyncHandler(async (req, res) => {
         return res.status(404).json({ message: 'Post not found' });
     }
 
-    if (post.likes.includes(userId)) { 
+    if (post.likes.includes(userId)) {
         post.likes.pull(userId);
         await post.save();
         io.emit('updateLikes', { postId: post._id, likes: post.likes });

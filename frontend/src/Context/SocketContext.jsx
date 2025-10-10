@@ -36,6 +36,16 @@ export const SocketProvider = ({ children }) => {
       setPosts((prevPosts) => [newPost, ...prevPosts]);
     });
 
+    newSocket.on("updatePost", (updatedPost) => {
+      setPosts((prev) =>
+        prev.map((p) => (p._id === updatedPost._id ? updatedPost : p))
+      );
+    });
+
+    newSocket.on("deletePost", ({ postId }) => {
+      setPosts((prev) => prev.filter((p) => p._id !== postId));
+    });
+
     newSocket.on("friendRequest", ({ newRequest }) => {
       console.log("🆕 New friend request received via socket:", newRequest);
       setRequests((prevRequests) => [newRequest, ...prevRequests]);

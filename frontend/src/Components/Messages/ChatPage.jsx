@@ -2,8 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { useSocket } from "../../Context/SocketContext";
 import { Send, FolderUpIcon } from "lucide-react";
 import "remixicon/fonts/remixicon.css";
+import { useNavigate } from "react-router-dom";
 
 const ChatPage = ({ selectedUser, onOpenSidebar }) => {
+  const navigate = useNavigate();
   const { messages, setMessages, onlineUsers } = useSocket();
   const [text, setText] = useState("");
   const [editOn, setEditOn] = useState(false);
@@ -141,7 +143,7 @@ const ChatPage = ({ selectedUser, onOpenSidebar }) => {
           className="w-10 h-10 rounded-full object-cover"
         />
         <div>
-          <h2 className="text-white font-semibold text-lg">
+          <h2 className="text-white font-semibold text-lg" onClick={()=>{navigate(`/profile/${selectedUser._id}`)}}>
             @{selectedUser.username}
           </h2>
           <p className="text-gray-400 text-sm">
