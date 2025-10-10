@@ -9,64 +9,207 @@ import { useContext } from "react";
 
 const Connection = () => {
   const [displayName, setdisplayName] = useState(1);
-  const { requests, loading } = useContext(AppContext);
+  const { requests, loading, user } = useContext(AppContext);
   const [requestBarOpen, setRequestBarOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [notifications, setNotifications] = useState([]);
 
   const values = [
-    { id: 1, element: <ShowAllUser /> },
-    { id: 2, element: <YourTotalConnection /> },
-    { id: 3, element: <SendRequestConnection /> },
+    { id: 1, element: <ShowAllUser />, name: "Discover People", icon: "🔍" },
+    { id: 2, element: <YourTotalConnection />, name: "My Connections", icon: "👥" },
+    { id: 3, element: <SendRequestConnection />, name: "Sent Requests", icon: "📤" },
   ];
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
         setRequestBarOpen(true);
+      } else {
+        setRequestBarOpen(false);
       }
     };
+    
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  if (loading) return <div className="bg-gradient-to-br from-gray-900 via-gray-950 to-black min-h-screen text-gray-100"> Loading...</div>;
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+    // You can implement search functionality here
+  };
+
+  const clearNotification = (id) => {
+    setNotifications(notifications.filter(notification => notification.id !== id));
+  };
+
+  if (loading) return (
+    <div className="bg-gradient-to-br from-gray-900 via-gray-950 to-black min-h-screen text-gray-100 flex items-center justify-center">
+      <div className="flex flex-col items-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mb-4"></div>
+        <p className="text-lg">Loading your connections...</p>
+      </div>
+    </div>
+  );
 
   return (
-    <div className="grid lg:grid-cols-4 sm:grid-cols-1 gap-4 mt-5 lg:mx-10">
-      <div className="mx-2">
+    <div className="grid lg:grid-cols-4 sm:grid-cols-1 gap-4 mt-5 lg:mx-10 min-h-screen">
+      {/* Enhanced Sidebar Section */}
+      <div className="mx-2 space-y-4 lg:sticky lg:top-0">
+        {/* User Profile Card */}
+        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-4 border border-gray-700 shadow-lg">
+          <div className="flex items-center space-x-3 mb-3">
+            <div className="relative">
+              <img src={user?.profilePic || "/avatar.svg"} alt="" className="w-12 h-12 rounded-full" />
+              <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-gray-800"></div>
+            </div>
+            <div className="flex-1">
+              <h3 className="text-white font-semibold">@{user?.username || "User"}</h3>
+              <p className="text-xs line-clamp-1">{user?.bio}</p>
+            </div>
+          </div>
+          
+          {/* Quick Stats */}
+          <div className="grid grid-cols-3 gap-2 text-center text-xs">
+            <div className="bg-gray-700 rounded p-2">
+              <p className="text-white font-bold">{user?.friends.length}</p>
+              <p className="text-gray-400">Connections</p>
+            </div>
+            <div className="bg-gray-700 rounded p-2">
+              <p className="text-white font-bold">{user?.following.length}</p>
+              <p className="text-gray-400">Post</p>
+            </div>
+            <div className="bg-gray-700 rounded p-2">
+              <p className="text-white font-bold">0</p>
+              <p className="text-gray-400">Groups</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Search Bar */}
+        <div className="bg-gray-800 rounded-xl p-3 border border-gray-700">
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search connections..."
+              value={searchTerm}
+              onChange={handleSearch}
+              className="w-full bg-gray-700 text-white rounded-lg pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <div className="absolute left-3 top-2.5 text-gray-400">
+              🔍
+            </div>
+          </div>
+        </div>
+
+        {/* Enhanced Sidebar */}
         <Sidebar setdisplayName={setdisplayName} displayName={displayName} />
+
+        {/* Notifications Panel */}
+        {notifications.length > 0 && (
+          <div className="bg-gradient-to-br from-blue-900/30 to-purple-900/30 rounded-xl p-4 border border-blue-700/50">
+            <div className="flex justify-between items-center mb-3">
+              <h3 className="text-white font-semibold text-sm">Notifications</h3>
+              <span className="bg-blue-500 text-white text-xs rounded-full px-2 py-1">
+                {notifications.length}
+              </span>
+            </div>
+            <div className="space-y-2">
+              {notifications.map(notification => (
+                <div key={notification.id} className="flex justify-between items-start bg-gray-700/50 rounded-lg p-2">
+                  <div>
+                    <p className="text-white text-xs">{notification.message}</p>
+                    <p className="text-gray-400 text-xs">{notification.time}</p>
+                  </div>
+                  <button
+                    onClick={() => clearNotification(notification.id)}
+                    className="text-gray-400 hover:text-white text-xs"
+                  >
+                    ×
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Quick Actions */}
+        <div className="bg-gray-800 rounded-xl p-4 border border-gray-700">
+          <h3 className="text-white font-semibold text-sm mb-3">Quick Actions</h3>
+          <div className="space-y-2">
+            <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg py-2 px-3 text-sm font-medium hover:from-blue-700 hover:to-blue-800 transition-all duration-200 flex items-center justify-center space-x-2">
+              <span>👥</span>
+              <span>Create Group</span>
+            </button>
+            <button className="w-full bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg py-2 px-3 text-sm font-medium hover:from-green-700 hover:to-green-800 transition-all duration-200 flex items-center justify-center space-x-2">
+              <span>📧</span>
+              <span>Invite Friends</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Footer */}
+        {requestBarOpen && (
+          <div className="bg-gray-800 rounded-xl p-4 border border-gray-700 mt-4">
+            <div className="text-center text-gray-400 text-xs space-y-2">
+              <div className="flex justify-center space-x-4 text-xs">
+                <a href="#" className="hover:text-white transition-colors">Privacy</a>
+                <a href="#" className="hover:text-white transition-colors">Terms</a>
+                <a href="#" className="hover:text-white transition-colors">Help</a>
+              </div>
+              <p className="text-gray-500">@lingolive c 2025</p>
+            </div>
+          </div>
+        )}
       </div>
 
-      <div className="lg:col-span-3 mt-5">
+      {/* Main Content Area */}
+      <div className="lg:col-span-3 mt-5 space-y-6">
+        {/* Enhanced Requests Section */}
         {displayName === 1 && (
           <div>
             {requests.length > 0 ? (
               <>
-                <h1 className="text-white text-2xl ml-4">Friend Requests</h1>
+                <div className="bg-gradient-to-r from-gray-800 to-gray-900 rounded-xl p-4 mx-2 border border-gray-700 mb-4">
+                  <h1 className="text-white text-2xl font-bold mb-2 flex items-center">
+                    <span className="mr-2">🎯</span>
+                    Friend Requests
+                  </h1>
+                  <p className="text-gray-400">You have {requests.length} pending friend requests</p>
+                </div>
                 <ReceiveRequestConnection />
-                <hr className="my-4" />
+                <hr className="my-6 border-gray-700" />
               </>
             ) : requestBarOpen ? (
               <>
-                <div className="bg-gray-800 p-4 rounded-lg mx-2 border-2 border-gray-700">
-                  <h1 className="text-white text-xl ml-4">Friend Requests</h1>
-                  <p className="text-white text-sm ml-4">
-                    No Friend Requests Available
-                  </p>
+                <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl mx-2 border-2 border-gray-700 shadow-lg">
+                  <div className="text-center">
+                    <div className="text-4xl mb-3">👋</div>
+                    <h1 className="text-white text-xl font-bold mb-2">Friend Requests</h1>
+                    <p className="text-gray-400 mb-4">
+                      No Friend Requests Available
+                    </p>
+                    <button className="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg py-2 px-6 font-medium hover:from-blue-700 hover:to-blue-800 transition-all duration-200">
+                      Find New Friends
+                    </button>
+                  </div>
                 </div>
-                <hr className="my-4" />
+                <hr className="my-6 border-gray-700" />
               </>
             ) : null}
           </div>
         )}
 
-        {displayName === 1 ? (
-          <ShowAllUser />
-        ) : displayName === 2 ? (
-          <YourTotalConnection />
-        ) : displayName === 3 ? (
-          <SendRequestConnection />
-        ) : null}
+        {/* Dynamic Content Display */}
+        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl border border-gray-700 shadow-lg mx-2">
+          {displayName === 1 ? (
+            <ShowAllUser />
+          ) : displayName === 2 ? (
+            <YourTotalConnection />
+          ) : displayName === 3 ? (
+            <SendRequestConnection />
+          ) : null}
+        </div>
       </div>
     </div>
   );
