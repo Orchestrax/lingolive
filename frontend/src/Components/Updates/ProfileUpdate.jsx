@@ -16,6 +16,7 @@ import {
 import AppContext from "../../Context/UseContext.jsx";
 import { Link } from "react-router-dom";
 import Comment from "../Post/Service/Comment.jsx";
+import "remixicon/fonts/remixicon.css";
 
 const ProfileUpdate = () => {
   const {
