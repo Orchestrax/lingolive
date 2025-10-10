@@ -1,5 +1,6 @@
 import { lazy, Suspense, useContext } from "react";
 import { Route, Routes } from "react-router-dom";
+import { Loader } from 'lucide-react';
 import AppContext from "./Context/UseContext";
 import Navbar from "./Components/Common/Navbar";
 import NotificationPopupManager from "./Context/NotificationProvider";
@@ -23,7 +24,7 @@ const App = () => {
   return (
     <div className="bg-gradient-to-br from-gray-900 via-gray-950 to-black min-h-screen text-gray-100">
       <Navbar />
-      <Suspense fallback={<div className="flex items-center justify-center h-screen">Loading...</div>}>
+      <Suspense fallback={<div className="flex items-center justify-center h-screen"><Loader className="h-10 w-10 animate-spin" /></div>}>
         <Routes>
           <Route path="/" element={auth ? <Home /> : <Login />} />
           <Route path="/profile" element={auth ? <Profile /> : <Login />} />
