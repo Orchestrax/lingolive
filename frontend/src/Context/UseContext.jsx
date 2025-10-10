@@ -19,6 +19,7 @@ export const AppProvider = ({ children }) => {
 
   const fetchUser = async () => {
   try {
+    setLoading(true);
     const response = await fetch(
       "https://lingolive.onrender.com/api/auth/me",
       {
@@ -46,6 +47,7 @@ export const AppProvider = ({ children }) => {
     localStorage.setItem("auth", "false");
     setUser(null);
   }
+  setLoading(false);
 };
 
 
@@ -167,22 +169,20 @@ export const AppProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const init = async () => {
-      await fetchUser(); // Get user first
-    };
-    init();
-  }, []);
+  const init = async () => {
+    await fetchUser();
+    await Promise.all([
+      fetchPosts(),
+      fetchAllUser(),
+      fetchFriendRequests(),
+      fetchFriendlist(),
+      fetchNotifications()
+    ]);
+    setLoading(false);
+  };
+  init();
+}, []);
 
-  useEffect(() => {
-    if (user?._id) {
-      // Load other data only after user is confirmed
-      fetchPosts();
-      fetchFriendRequests();
-      fetchFriendlist();
-      fetchAllUser();
-      fetchNotifications();
-    }
-  }, [user]);
 
   useEffect(() => {
     if (commentIdForFetching) {
