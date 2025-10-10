@@ -44,6 +44,25 @@ export const sendMessage = asyncHandler(async (req, res) => {
   res.status(201).json({ message: "Message sent", data: populatedMessage });
 });
 
+export const deleteMessage = asyncHandler(async (req, res) => {
+    const { messageId } = req.params;
+    const currentUserId = req.user._id;
+
+    const message = await Message.findById(messageId);
+    if (!message) {
+        return res.status(404).json({ message: "Message not found" });
+    }
+
+    if (message.sender.toString() !== currentUserId.toString()) {
+        return res.status(403).json({ message: "You can only delete your own messages" });
+    }
+
+    io.to(message.receiver.toString()).emit("deleteMessage", messageId);
+    io.to(currentUserId.toString()).emit("deleteMessage", messageId);
+
+    await message.remove();
+    res.status(200).json({ message: "Message deleted" });
+});
 
 export const getMessages = asyncHandler(async (req, res) => {
     const { userId } = req.params;

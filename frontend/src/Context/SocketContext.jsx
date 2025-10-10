@@ -64,8 +64,14 @@ export const SocketProvider = ({ children }) => {
     socket.on("newMessage", (message) => {
       setMessages((prev) => [...prev, message]);
     });
+    socket.on("deleteMessage", (messageId) => {
+      setMessages((prev) => prev.filter((msg) => msg._id !== messageId));
+    });
 
-    return () => socket.off("newMessage");
+    return () => {
+      socket.off("newMessage");
+      socket.off("deleteMessage");
+    };
   }, [socket]);
 
   return (

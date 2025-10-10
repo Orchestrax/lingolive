@@ -96,6 +96,20 @@ const ChatPage = ({ selectedUser, onOpenSidebar }) => {
     }
   };
 
+  const deleteMessage = async (messageId) => {
+    try {
+      const res = await fetch(`https://lingolive.onrender.com/api/messages/${messageId}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      if (res.ok) {
+        setMessages((prev) => prev.filter((msg) => msg._id !== messageId));
+      }
+    } catch (error) {
+      console.error("Error deleting message:", error);
+    }
+  };
+
   const handleKeyPress = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -161,9 +175,11 @@ const ChatPage = ({ selectedUser, onOpenSidebar }) => {
                     isOwn
                       ? "bg-blue-600 text-white rounded-br-none"
                       : "bg-gray-800 text-gray-100 rounded-bl-none"
-                  }`}
+                  } relative`}
                 >
-                  <p className="text-sm">{m.text}</p>
+                  <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-blue-500 transition">
+                    <i className="ri-more-2-line" onClick={() => { deleteMessage(m._id) }}></i>
+                  </div>
                   {m.image && (
                     <img
                       src={m.image}
@@ -189,6 +205,7 @@ const ChatPage = ({ selectedUser, onOpenSidebar }) => {
                       📎 Download file
                     </a>
                   )}
+                  <p className="text-sm">{m.text}</p>
 
                   <span className="text-[10px] text-gray-400 block mt-1 text-right">
                     {new Date(m.createdAt).toLocaleTimeString([], {
