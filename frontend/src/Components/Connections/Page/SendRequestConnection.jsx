@@ -3,7 +3,7 @@
   import { useNavigate } from "react-router-dom";
 
   const SendRequestConnection = () => {
-    const { user } = useContext(AppContext);
+    const { user, loading } = useContext(AppContext);
     const navigate = useNavigate();
 
     // Extract IDs for easier comparison
@@ -12,6 +12,7 @@
     // Filter out users who are followed but not yet friends
     const sendRequest = user.following.filter((u) => !friendIds.includes(u._id));
 
+    if (loading) return <div className="bg-gradient-to-br from-gray-900 via-gray-950 to-black min-h-screen text-gray-100"> Loading...</div>;
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
         <h1 className="col-span-full text-2xl font-bold text-white">

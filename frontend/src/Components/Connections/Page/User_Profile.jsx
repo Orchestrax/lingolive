@@ -15,7 +15,7 @@ const User_Profile = () => {
     const { id } = useParams();
   const [user, setUser] = useState({});
   const [openCommentBoxId, setOpenCommentBoxId] = useState(null);
-  const { posts, setCommentIdForFetching, setPosts, fetchComments } = useContext(AppContext);
+  const { posts, setCommentIdForFetching, setPosts, fetchComments, loading } = useContext(AppContext);
 
   const getUser = async () => {
     try {
@@ -79,6 +79,8 @@ const User_Profile = () => {
       fetchComments();
     }
   }, []);
+
+  if (loading) return <div className="bg-gradient-to-br from-gray-900 via-gray-950 to-black min-h-screen text-gray-100"> Loading...</div>;
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">

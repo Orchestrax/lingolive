@@ -3,7 +3,7 @@ import AppContext from "../../../Context/UseContext"
 import { useNavigate } from "react-router-dom"
 
 const YourTotalConnection = () => {
-  const { friendList, fetchFriendlist } = useContext(AppContext)
+  const { friendList, fetchFriendlist, loading } = useContext(AppContext)
   const navigate = useNavigate();
   console.log("Friend List in YourTotalConnection:", friendList);
 
@@ -14,6 +14,8 @@ const YourTotalConnection = () => {
   if(!friendList) {
     return <div>Loading...</div>;
   }
+
+  if (loading) return <div className="bg-gradient-to-br from-gray-900 via-gray-950 to-black min-h-screen text-gray-100"> Loading...</div>;
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4"

@@ -5,7 +5,7 @@ import ReceiveRequestConnection from "./ReceiveRequestConnection";
 import { useNavigate } from "react-router-dom";
 
 const ShowAllUser = () => {
-  const { user, allUser, fetchAllUser, requests } = useContext(AppContext);
+  const { user, allUser, fetchAllUser, requests, loading } = useContext(AppContext);
   const [displayUsers, setDisplayUsers] = useState({});
   const navigate = useNavigate();
 
@@ -48,6 +48,8 @@ const ShowAllUser = () => {
       console.error("Error sending friend request:", err);
     }
   };
+
+  if (loading) return <div className="bg-gradient-to-br from-gray-900 via-gray-950 to-black min-h-screen text-gray-100"> Loading...</div>;
 
   return (
     <div>

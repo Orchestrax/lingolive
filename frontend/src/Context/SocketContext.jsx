@@ -14,49 +14,48 @@ export const SocketProvider = ({ children }) => {
   const [onlineUsers, setOnlineUsers] = useState([]);
 
   useEffect(() => {
-    if (user?._id) {
-      const newSocket = io("https://lingolive.onrender.com", {
-        query: { userId: user._id },
-        withCredentials: true,
-        transports: ["websocket"],
-      });
+    if (!user?._id) return;
 
-      setSocket(newSocket);
+    const newSocket = io("https://lingolive.onrender.com", {
+      query: { userId: user._id },
+      withCredentials: true,
+      transports: ["websocket"],
+    });
 
-      // Join user room
-      newSocket.emit("joinRoom", user._id);
+    setSocket(newSocket);
 
-      if (user._id) {
-        newSocket.emit("addUser", user._id);
-      }
+    // Join user room
+    newSocket.emit("joinRoom", user._id);
 
-      newSocket.on("newPost", (newPost) => {
-        console.log("🆕 New post received via socket:", newPost);
-        setPosts((prevPosts) => [newPost, ...prevPosts]);
-      });
-
-      newSocket.on("friendRequest", ({ newRequest }) => {
-        console.log("🆕 New friend request received via socket:", newRequest);
-        setRequests((prevRequests) => [newRequest, ...prevRequests]);
-      });
-
-      // Listen for new notifications
-      newSocket.on("newNotification", (notification) => {
-        console.log("🔔 New notification received:", notification);
-        setNotifications((prev) => [notification, ...prev]);
-      });
-
-      newSocket.on("onlineUsers", (onlineUsers) => {
-        console.log("Online Users List Updated:", onlineUsers);
-        setOnlineUsers(onlineUsers);
-      });
-
-      return () => {
-        newSocket.disconnect();
-      };
+    if (user._id) {
+      newSocket.emit("addUser", user._id);
     }
-  }, [user]);
 
+    newSocket.on("newPost", (newPost) => {
+      console.log("🆕 New post received via socket:", newPost);
+      setPosts((prevPosts) => [newPost, ...prevPosts]);
+    });
+
+    newSocket.on("friendRequest", ({ newRequest }) => {
+      console.log("🆕 New friend request received via socket:", newRequest);
+      setRequests((prevRequests) => [newRequest, ...prevRequests]);
+    });
+
+    // Listen for new notifications
+    newSocket.on("newNotification", (notification) => {
+      console.log("🔔 New notification received:", notification);
+      setNotifications((prev) => [notification, ...prev]);
+    });
+
+    newSocket.on("onlineUsers", (onlineUsers) => {
+      console.log("Online Users List Updated:", onlineUsers);
+      setOnlineUsers(onlineUsers);
+    });
+
+    return () => {
+      newSocket.disconnect();
+    };
+  }, [user]);
 
   // For real time messages
   useEffect(() => {
@@ -68,7 +67,6 @@ export const SocketProvider = ({ children }) => {
 
     return () => socket.off("newMessage");
   }, [socket]);
-  
 
   return (
     <SocketContext.Provider
@@ -89,5 +87,3 @@ export const SocketProvider = ({ children }) => {
 };
 
 export const useSocket = () => useContext(SocketContext);
-
-

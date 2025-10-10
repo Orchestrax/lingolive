@@ -9,7 +9,7 @@ import { useContext } from "react";
 
 const Connection = () => {
   const [displayName, setdisplayName] = useState(1);
-  const { requests } = useContext(AppContext);
+  const { requests, loading } = useContext(AppContext);
   const [requestBarOpen, setRequestBarOpen] = useState(false);
 
   const values = [
@@ -28,6 +28,8 @@ const Connection = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  if (loading) return <div className="bg-gradient-to-br from-gray-900 via-gray-950 to-black min-h-screen text-gray-100"> Loading...</div>;
 
   return (
     <div className="grid lg:grid-cols-4 sm:grid-cols-1 gap-4 mt-5 lg:mx-10">

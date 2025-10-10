@@ -40,42 +40,33 @@ const Navbar = () => {
       <div className="w-full">
         <div className="flex justify-between items-center h-10">
           {/* <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-amber-500">LingOLive</h1> */}
-          
+
           <svg
             width="320"
             height="100"
             viewBox="0 0 320 100"
             xmlns="http://www.w3.org/2000/svg"
-            font-family="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
+            style={{
+              fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+            }}
           >
-            <text
-              x="20"
-              y="65"
-              font-size="55"
-              fill="#2c3e50"
-              font-weight="bold"
-            >
+            <text x="20" y="65" fontSize="55" fill="#2c3e50" fontWeight="bold">
               Lingo
             </text>
-            <text
-              x="175"
-              y="65"
-              font-size="55"
-              fill="#1abc9c"
-              font-weight="bold"
-            >
+            <text x="175" y="65" fontSize="55" fill="#1abc9c" fontWeight="bold">
               live
             </text>
 
             <path
               d="M 10 75 Q 70 45 150 70 C 180 80 220 70 280 50 Q 300 40 310 45"
               stroke="#1abc9c"
-              stroke-width="4"
+              strokeWidth="4"
               fill="none"
               opacity="0.7"
             />
             <circle cx="285" cy="48" r="8" fill="#1abc9c" />
           </svg>
+
           {/* Desktop Navigation */}
           <div className="hidden md:block">
             {auth ? (
@@ -202,7 +193,9 @@ const Navbar = () => {
                 <Link
                   to="/posts"
                   className="flex items-center space-x-3 p-3 text-red-400 hover:text-red-300 transition-colors duration-200"
-                  onClick={()=>{setIsMobileMenuOpen(false)}}
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                  }}
                 >
                   <Eye className="w-5 h-5" />
                   <span>Posts</span>

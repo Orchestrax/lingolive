@@ -4,12 +4,14 @@ import AppContext from '../../../Context/UseContext';
 import { useNavigate } from 'react-router-dom';
 
 const ReceiveRequestConnection = () => {
-  const { requests, setRequests, fetchFriendRequests } = useContext(AppContext);
+  const { requests, setRequests, fetchFriendRequests, loading } = useContext(AppContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchFriendRequests();
   }, []);
+
+  if (loading) return <div className="bg-gradient-to-br from-gray-900 via-gray-950 to-black min-h-screen text-gray-100"> Loading...</div>;
 
   const handleAcceptRequest = async (requestId) => {
     try {
