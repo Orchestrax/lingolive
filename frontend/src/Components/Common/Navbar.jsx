@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { useContext, useState } from "react";
 import AppContext from "../../Context/UseContext";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const { auth, setUser, notifications } = useContext(AppContext);
@@ -79,35 +80,35 @@ const Navbar = () => {
           <div className="hidden md:block">
             {auth ? (
               <div className="flex space-x-6 text-sm font-medium">
-                <a
+                <Link
                   href="/"
                   className="flex items-center space-x-2 text-blue-400 hover:text-blue-300 transition-colors duration-200"
                 >
                   <HomeIcon className="w-5 h-5" />
                   <span>Home</span>
-                </a>
-                <a
+                </Link>
+                <Link
                   className="flex items-center space-x-2 text-purple-400 hover:text-purple-300 transition-colors duration-200"
                   href="/connections"
                 >
                   <Network className="w-5 h-5" />
                   <span>Connection</span>
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/message"
                   className="flex items-center space-x-2 text-green-400 hover:text-green-300 transition-colors duration-200"
                 >
                   <MessageSquareMore className="w-5 h-5" />
                   <span>Messages</span>
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/posts"
                   className="flex items-center space-x-2 text-red-400 hover:text-red-300 transition-colors duration-200"
                 >
                   <Eye className="w-5 h-5" />
                   <span>Posts</span>
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/notifications"
                   className="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300 transition-colors duration-200"
                 >
@@ -123,14 +124,14 @@ const Navbar = () => {
                       </span>
                     )}
                   </div>
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/profile"
                   className="flex items-center space-x-2 text-pink-400 hover:text-pink-300 transition-colors duration-200"
                 >
                   <UserIcon className="w-5 h-5 bg-white text-black rounded-full" />
                   <span>Profile</span>
-                </a>
+                </Link>
                 <button
                   onClick={handleLogout}
                   className="flex items-center space-x-2 text-red-400 hover:text-red-300 transition-colors duration-200"
@@ -174,38 +175,38 @@ const Navbar = () => {
           <div className="md:hidden mt-4 bg-gray-700 rounded-lg p-4 animate-fade-in">
             {auth ? (
               <div className="flex flex-col space-y-4">
-                <a
+                <Link
                   href="/"
                   className="flex items-center space-x-3 p-3 text-blue-400 hover:text-blue-300 hover:bg-gray-600 rounded-lg transition-all duration-200"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   <HomeIcon className="w-5 h-5" />
                   <span>Home</span>
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/connections"
                   className="flex items-center space-x-3 p-3 text-purple-400 hover:text-purple-300 hover:bg-gray-600 rounded-lg transition-all duration-200 text-left"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   <Network className="w-5 h-5" />
                   <span>Connection</span>
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/message"
                   className="flex items-center space-x-3 p-3 text-green-400 hover:text-green-300 hover:bg-gray-600 rounded-lg transition-all duration-200 text-left"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   <MessageSquareMore className="w-5 h-5" />
                   <span>Messages</span>
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/posts"
                   className="flex items-center space-x-3 p-3 text-red-400 hover:text-red-300 transition-colors duration-200"
                 >
                   <Eye className="w-5 h-5" />
                   <span>Posts</span>
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/notifications"
                   className="flex items-center space-x-3 p-3 text-yellow-400 hover:text-yellow-300 hover:bg-gray-600 rounded-lg transition-all duration-200 text-left"
                   onClick={() => setIsMobileMenuOpen(false)}
@@ -222,15 +223,15 @@ const Navbar = () => {
                       </span>
                     )}
                   </div>
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/profile"
                   className="flex items-center space-x-3 p-3 text-pink-400 hover:text-pink-300 hover:bg-gray-600 rounded-lg transition-all duration-200"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   <UserIcon className="w-5 h-5 bg-white text-black rounded-full" />
                   <span>Profile</span>
-                </a>
+                </Link>
                 <button
                   onClick={() => {
                     handleLogout();

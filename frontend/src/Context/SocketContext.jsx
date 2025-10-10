@@ -18,6 +18,7 @@ export const SocketProvider = ({ children }) => {
       const newSocket = io("https://lingolive.onrender.com", {
         query: { userId: user._id },
         withCredentials: true,
+        transports: ["websocket"],
       });
 
       setSocket(newSocket);

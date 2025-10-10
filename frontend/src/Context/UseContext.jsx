@@ -15,33 +15,39 @@ export const AppProvider = ({ children }) => {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const [auth, setAuth] = useState(() => {
-    return localStorage.getItem("auth") === "true" ? true : false;
-  });
+  const [auth, setAuth] = useState(() => localStorage.getItem("auth") === "true");
 
   const fetchUser = async () => {
-    try {
-      const response = await fetch("https://lingolive.onrender.com/api/auth/me", {
+  try {
+    const response = await fetch(
+      "https://lingolive.onrender.com/api/auth/me",
+      {
         method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         credentials: "include",
-      });
-
-      const data = await response.json();
-      console.log("Fetched user:", data);
-      setUser(data.user);
-      if (data.user.email) {
-        localStorage.setItem("auth", "true");
-      } else {
-        localStorage.setItem("auth", "false");
       }
-    } catch (err) {
-      console.error("Error fetching user:", err.message);
+    );
+
+    if (!response.ok) {
+      // Token expired or invalid
+      setAuth(false);
       localStorage.setItem("auth", "false");
+      setUser(null);
+      return;
     }
-  };
+
+    const data = await response.json();
+    setUser(data.user);
+    setAuth(true);
+    localStorage.setItem("auth", "true");
+  } catch (err) {
+    console.error("Error fetching user:", err.message);
+    setAuth(false);
+    localStorage.setItem("auth", "false");
+    setUser(null);
+  }
+};
+
 
   const fetchPosts = async () => {
     try {
@@ -83,13 +89,16 @@ export const AppProvider = ({ children }) => {
 
   const fetchAllUser = async () => {
     try {
-      const res = await fetch("https://lingolive.onrender.com/api/auth/AllUser", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
+      const res = await fetch(
+        "https://lingolive.onrender.com/api/auth/AllUser",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
       const data = await res.json();
       console.log("Fetched all users:", data);
       setAllUser(data.data); // assuming your API returns { data: [...] }
@@ -100,13 +109,16 @@ export const AppProvider = ({ children }) => {
 
   const fetchFriendRequests = async () => {
     try {
-      const res = await fetch("https://lingolive.onrender.com/api/friends/requests", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
+      const res = await fetch(
+        "https://lingolive.onrender.com/api/friends/requests",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
       const data = await res.json();
       console.log("Fetched friend requests:", data);
       setRequests(data.requests || []);
@@ -117,13 +129,16 @@ export const AppProvider = ({ children }) => {
 
   const fetchFriendlist = async () => {
     try {
-      const res = await fetch("https://lingolive.onrender.com/api/friends/list", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
+      const res = await fetch(
+        "https://lingolive.onrender.com/api/friends/list",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
       const data = await res.json();
       console.log("Fetched friend list:", data);
       // You can set this data to a state if needed
@@ -135,9 +150,12 @@ export const AppProvider = ({ children }) => {
 
   const fetchNotifications = async () => {
     try {
-      const res = await fetch("https://lingolive.onrender.com/api/notifications", {
-        credentials: "include",
-      });
+      const res = await fetch(
+        "https://lingolive.onrender.com/api/notifications",
+        {
+          credentials: "include",
+        }
+      );
       const data = await res.json();
       console.log("Fetched notifications: ", data);
       setNotifications(data.notifications || []);
@@ -149,13 +167,22 @@ export const AppProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchUser();
-    fetchPosts();
-    fetchFriendRequests();
-    fetchFriendlist();
-    fetchAllUser();
-    fetchNotifications();
+    const init = async () => {
+      await fetchUser(); // Get user first
+    };
+    init();
   }, []);
+
+  useEffect(() => {
+    if (user?._id) {
+      // Load other data only after user is confirmed
+      fetchPosts();
+      fetchFriendRequests();
+      fetchFriendlist();
+      fetchAllUser();
+      fetchNotifications();
+    }
+  }, [user]);
 
   useEffect(() => {
     if (commentIdForFetching) {
