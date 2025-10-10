@@ -1,11 +1,11 @@
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "remixicon/fonts/remixicon.css";
 import AppContext from "../../../Context/UseContext";
 import ReceiveRequestConnection from "./ReceiveRequestConnection";
 import { useNavigate } from "react-router-dom";
 
 const ShowAllUser = () => {
-  const { user, allUser, fetchAllUser, requests, loading } = useContext(AppContext);
+  const { user, allUser, fetchAllUser, requests } = useContext(AppContext);
   const [displayUsers, setDisplayUsers] = useState({});
   const navigate = useNavigate();
 
@@ -13,17 +13,19 @@ const ShowAllUser = () => {
     fetchAllUser();
   }, []);
 
-  const filtered = useMemo(() => {
-  return allUser?.filter(
-    (u) =>
-      u._id !== user._id &&
-      !user.following?.some((f) => f._id === u._id) &&
-      !user.followers?.some((f) => f._id === u._id)
-  );
-}, [allUser, user]);
+  // Update displayUsers when allUser or user changes
+  useEffect(() => {
+    if (allUser && user) {
+      const filtered = allUser.filter(
+        (u) =>
+          u._id !== user._id &&
+          !user.following?.some((f) => f._id === u._id) &&
+          !user.followers?.some((f) => f._id === u._id)
+      );
 
-
-  setDisplayUsers(filtered);
+      setDisplayUsers(filtered);
+    }
+  }, [allUser, user]);
 
   const handleSendFriendRequest = async (userId) => {
     try {
@@ -48,8 +50,6 @@ const ShowAllUser = () => {
       console.error("Error sending friend request:", err);
     }
   };
-
-  if (loading) return <div className="bg-gradient-to-br from-gray-900 via-gray-950 to-black min-h-screen text-gray-100"> Loading...</div>;
 
   return (
     <div>
@@ -91,18 +91,10 @@ const ShowAllUser = () => {
                     className="w-16 h-16 rounded-full border-4 border-indigo-500 object-cover -mt-10"
                   />
                   <div>
-                    <h3
-                      className="font-bold text-lg text-white cursor-pointer hover:underline"
-                      onClick={() => navigate(`/profile/${u._id}`)}
-                    >
+                    <h3 className="font-bold text-lg text-white cursor-pointer hover:underline" onClick={() => navigate(`/profile/${u._id}`)}>
                       {u.fullname}
                     </h3>
-                    <p
-                      className="text-sm text-indigo-400 cursor-pointer hover:underline"
-                      onClick={() => navigate(`/profile/${u._id}`)}
-                    >
-                      @{u.username}
-                    </p>
+                    <p className="text-sm text-indigo-400 cursor-pointer hover:underline" onClick={() => navigate(`/profile/${u._id}`)}>@{u.username}</p>
                   </div>
                 </div>
 
