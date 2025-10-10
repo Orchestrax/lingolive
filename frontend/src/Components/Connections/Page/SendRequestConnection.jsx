@@ -5,18 +5,18 @@ import { useNavigate } from "react-router-dom";
 const SendRequestConnection = () => {
   const { user } = useContext(AppContext);
   const navigate = useNavigate();
-  
+
   // Extract IDs for easier comparison
   const friendIds = user.friends.map((f) => f._id);
 
   // Filter out users who are followed but not yet friends
-  const sendRequest = user.following.filter(
-    (u) => !friendIds.includes(u._id)
-  );
+  const sendRequest = user.following.filter((u) => !friendIds.includes(u._id));
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
-      <h1 className="col-span-full text-2xl font-bold text-white">Sent Connection Requests</h1>
+      <h1 className="col-span-full text-2xl font-bold text-white">
+        Sent Connection Requests
+      </h1>
       {sendRequest.map((u) => (
         <div
           key={u._id}
@@ -38,8 +38,18 @@ const SendRequestConnection = () => {
                 className="w-14 h-14 rounded-full object-cover border-4 border-indigo-500 -mt-10"
               />
               <div>
-                <h3 className="font-semibold text-lg">{u.fullname}</h3>
-                <p className="text-sm text-indigo-400">@{u.username}</p>
+                <h3
+                  className="font-bold text-lg text-white cursor-pointer hover:underline"
+                  onClick={() => navigate(`/profile/${u._id}`)}
+                >
+                  {u.fullname}
+                </h3>
+                <p
+                  className="text-sm text-indigo-400 cursor-pointer hover:underline"
+                  onClick={() => navigate(`/profile/${u._id}`)}
+                >
+                  @{u.username}
+                </p>
               </div>
             </div>
 
@@ -55,19 +65,11 @@ const SendRequestConnection = () => {
                   <p className="text-xs text-gray-400">📍 {u.location}</p>
                 )}
               </div>
-              <p
-                className="text-xs text-purple-400 font-medium cursor-pointer hover:text-purple-300 transition-colors"
-                onClick={() => navigate(`/profile/${u._id}`)}
-              >
-                View Profile
-              </p>
             </div>
 
-            <button
-              className="mt-4 bg-gradient-to-r from-gray-500 to-zinc-400 hover:from-green-600 hover:to-teal-500 text-white py-2 px-4 rounded-xl w-full font-semibold shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center"
-            >
+            <button className="mt-4 bg-gradient-to-r from-gray-500 to-zinc-400 hover:from-green-600 hover:to-teal-500 text-white py-2 px-4 rounded-xl w-full font-semibold shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center">
               <i className="ri-user-add-line mr-2"></i>
-              WithDraw Request
+              Following
             </button>
           </div>
         </div>

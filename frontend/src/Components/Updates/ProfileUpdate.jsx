@@ -891,7 +891,7 @@ const ProfileUpdate = () => {
                 {post.content}
               </p>
               <button
-                className="text-blue-400 hover:underline"
+                className="text-blue-400 hover:underline text-left"
                 onClick={() =>
                   setExpandedPostId(
                     expandedPostId === post._id ? null : post._id

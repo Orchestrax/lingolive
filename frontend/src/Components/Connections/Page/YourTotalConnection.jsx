@@ -41,8 +41,8 @@ const YourTotalConnection = () => {
                   className="w-14 h-14 rounded-full object-cover border-4 border-indigo-400 -mt-10"
                 />
                 <div>
-                  <h3 className="font-semibold text-lg">{friend.fullname}</h3>
-                  <p className="text-sm text-indigo-400">@{friend.username}</p>
+                  <h3 className="font-semibold text-lg cursor-pointer hover:underline" onClick={() => navigate(`/profile/${friend._id}`)}>{friend.fullname}</h3>
+                  <p className="text-sm text-indigo-400 cursor-pointer hover:underline" onClick={() => navigate(`/profile/${friend._id}`)}>@{friend.username}</p>
                 </div>
               </div>
 
@@ -58,12 +58,6 @@ const YourTotalConnection = () => {
                   <p className="text-xs text-gray-400">📍 {friend.location}</p>
                 )}
               </div>
-              <p
-                className="text-xs text-purple-400 font-medium cursor-pointer hover:text-purple-300 transition-colors"
-                onClick={() => navigate(`/profile/${friend._id}`)}
-              >
-                View Profile
-              </p>
             </div>
 
               <a

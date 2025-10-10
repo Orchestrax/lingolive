@@ -119,7 +119,7 @@ const ShowPost = () => {
                 />
                 <div>
                   <Link
-                    to={`/profile/${post.user.username}`}
+                    to={`/profile/${post.user._id}`}
                     className="font-semibold hover:underline"
                   >
                     @{post.user.username}

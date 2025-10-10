@@ -1,7 +1,9 @@
 import { useContext, useState } from "react";
 import AppContext from "../../../Context/UseContext";
+import { useNavigate } from "react-router-dom";
 
 const Comment = ({ id }) => {
+  const navigate = useNavigate();
   const [comment, setComment] = useState("");
   const [deleteOptionOpen, setDeleteOptionOpen] = useState(null);
   const { comments, setComments } = useContext(AppContext);
@@ -79,7 +81,7 @@ const Comment = ({ id }) => {
             <div className="flex items-center mb-2 space-x-2">
               <img src={cmt?.user?.profilePic} alt="" className="w-5 h-5 rounded-full" />
               <div className="leading-4">
-                <h1 className="font-semibold text-gray-300">@{cmt.user?.username}</h1>
+                <h1 className="font-semibold text-gray-300" onClick={() => navigate(`/profile/${cmt.user?._id}`)}>@{cmt.user?.username}</h1>
                 <span className="text-xs text-gray-500">{new Date(cmt.createdAt).toLocaleString()}</span>
               </div>
             </div>

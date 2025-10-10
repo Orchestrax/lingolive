@@ -91,10 +91,10 @@ const ShowAllUser = () => {
                     className="w-16 h-16 rounded-full border-4 border-indigo-500 object-cover -mt-10"
                   />
                   <div>
-                    <h3 className="font-bold text-lg text-white">
+                    <h3 className="font-bold text-lg text-white cursor-pointer hover:underline" onClick={() => navigate(`/profile/${u._id}`)}>
                       {u.fullname}
                     </h3>
-                    <p className="text-sm text-indigo-400">@{u.username}</p>
+                    <p className="text-sm text-indigo-400 cursor-pointer hover:underline" onClick={() => navigate(`/profile/${u._id}`)}>@{u.username}</p>
                   </div>
                 </div>
 
@@ -111,12 +111,6 @@ const ShowAllUser = () => {
                       <p className="text-xs text-gray-400">📍 {u.location}</p>
                     )}
                   </div>
-                  <p
-                    className="text-xs text-purple-400 font-medium cursor-pointer hover:text-purple-300 transition-colors"
-                    onClick={() => navigate(`/profile/${u._id}`)}
-                  >
-                    View Profile
-                  </p>
                 </div>
 
                 {/* Friend Button */}

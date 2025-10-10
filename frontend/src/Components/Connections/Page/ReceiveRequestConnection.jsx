@@ -72,8 +72,8 @@ const ReceiveRequestConnection = () => {
                   className="w-16 h-16 rounded-full border-4 border-green-500 object-cover -mt-10"
                 />
                 <div>
-                  <h3 className="font-semibold text-lg">{req.sender.fullname}</h3>
-                  <p className="text-sm text-blue-400">@{req.sender.username}</p>
+                  <h3 className="font-semibold text-lg cursor-pointer hover:underline" onClick={() => navigate(`/profile/${req.sender._id}`)}>{req.sender.fullname}</h3>
+                  <p className="text-sm text-blue-400 cursor-pointer hover:underline" onClick={() => navigate(`/profile/${req.sender._id}`)}>@{req.sender.username}</p>
                 </div>
               </div>
 
@@ -89,12 +89,6 @@ const ReceiveRequestConnection = () => {
                       <p className="text-xs text-gray-400">📍 {req.sender.location}</p>
                     )}
                   </div>
-                  <p
-                    className="text-xs text-purple-400 font-medium cursor-pointer hover:text-purple-300 transition-colors"
-                    onClick={() => navigate(`/profile/${req.sender._id}`)}
-                  >
-                    View Profile
-                  </p>
                 </div>
 
               <div className="mt-4 flex space-x-2">
