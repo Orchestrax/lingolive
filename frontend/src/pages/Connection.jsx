@@ -6,13 +6,15 @@ import SendRequestConnection from "../Components/Connections/Page/SendRequestCon
 import ReceiveRequestConnection from "../Components/Connections/Page/ReceiveRequestConnection";
 import AppContext from "../Context/UseContext";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Connection = () => {
+  const navigate = useNavigate();
   const [displayName, setdisplayName] = useState(1);
-  const { requests, loading, user } = useContext(AppContext);
+  const { requests, loading, user, allUser } = useContext(AppContext);
   const [requestBarOpen, setRequestBarOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [notifications, setNotifications] = useState([]);
+  const [searchResult, setSearchResult] = useState("");
 
   const values = [
     { id: 1, element: <ShowAllUser />, name: "Discover People", icon: "🔍" },
@@ -37,10 +39,8 @@ const Connection = () => {
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
     // You can implement search functionality here
-  };
-
-  const clearNotification = (id) => {
-    setNotifications(notifications.filter(notification => notification.id !== id));
+    const searchUser = allUser.filter((u)=> u.username.toLowerCase().includes(e.target.value.toLowerCase()) || u.fullname.toLowerCase().includes(e.target.value.toLowerCase()));
+    setSearchResult(searchUser);
   };
 
   if (loading) return (
@@ -99,49 +99,41 @@ const Connection = () => {
             <div className="absolute left-3 top-2.5 text-gray-400">
               🔍
             </div>
+            <div className="relative flex flex-col">
+              {searchTerm && (
+                <div className="absolute bg-gray-800 border border-gray-700 rounded-lg mt-1 w-full overflow-y-auto z-10">
+                  {searchResult.length > 0 ? (
+                    <>
+                      {searchResult.map((user) => (
+                        <div key={user._id} className="flex items-center p-2 hover:bg-gray-700 cursor-pointer" onClick={() => { navigate(`/profile/${user._id}`); setSearchTerm(""); setSearchResult([]); }}>
+                          <img src={user.profilePic || "/avatar.svg"} alt="" className="w-8 h-8 rounded-full mr-3" />
+                          <div>
+                            <p className="text-white text-sm font-medium">@{user.username}</p>
+                            <p className="text-gray-400 text-xs line-clamp-1">{user.fullname}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </>
+                  ) : "No Results Found"}
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
         {/* Enhanced Sidebar */}
         <Sidebar setdisplayName={setdisplayName} displayName={displayName} />
 
-        {/* Notifications Panel */}
-        {notifications.length > 0 && (
-          <div className="bg-gradient-to-br from-blue-900/30 to-purple-900/30 rounded-xl p-4 border border-blue-700/50">
-            <div className="flex justify-between items-center mb-3">
-              <h3 className="text-white font-semibold text-sm">Notifications</h3>
-              <span className="bg-blue-500 text-white text-xs rounded-full px-2 py-1">
-                {notifications.length}
-              </span>
-            </div>
-            <div className="space-y-2">
-              {notifications.map(notification => (
-                <div key={notification.id} className="flex justify-between items-start bg-gray-700/50 rounded-lg p-2">
-                  <div>
-                    <p className="text-white text-xs">{notification.message}</p>
-                    <p className="text-gray-400 text-xs">{notification.time}</p>
-                  </div>
-                  <button
-                    onClick={() => clearNotification(notification.id)}
-                    className="text-gray-400 hover:text-white text-xs"
-                  >
-                    ×
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
 
         {/* Quick Actions */}
         <div className="bg-gray-800 rounded-xl p-4 border border-gray-700">
           <h3 className="text-white font-semibold text-sm mb-3">Quick Actions</h3>
           <div className="space-y-2">
-            <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg py-2 px-3 text-sm font-medium hover:from-blue-700 hover:to-blue-800 transition-all duration-200 flex items-center justify-center space-x-2">
+            <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg py-2 px-3 text-sm font-medium hover:from-blue-700 hover:to-blue-800 transition-all duration-200 flex items-center justify-center space-x-2 cursor-no-drop" disabled={true}>
               <span>👥</span>
               <span>Create Group</span>
             </button>
-            <button className="w-full bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg py-2 px-3 text-sm font-medium hover:from-green-700 hover:to-green-800 transition-all duration-200 flex items-center justify-center space-x-2">
+            <button className="w-full bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg py-2 px-3 text-sm font-medium hover:from-green-700 hover:to-green-800 transition-all duration-200 flex items-center justify-center space-x-2 cursor-no-drop" disabled={true}>
               <span>📧</span>
               <span>Invite Friends</span>
             </button>
@@ -157,7 +149,7 @@ const Connection = () => {
                 <a href="#" className="hover:text-white transition-colors">Terms</a>
                 <a href="#" className="hover:text-white transition-colors">Help</a>
               </div>
-              <p className="text-gray-500">@lingolive c 2025</p>
+              <p className="text-gray-500">@lingolive 2025</p>
             </div>
           </div>
         )}

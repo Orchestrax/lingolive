@@ -93,13 +93,6 @@ const Navbar = () => {
                   <span>Messages</span>
                 </Link>
                 <Link
-                  to="/posts"
-                  className="flex items-center space-x-2 text-red-400 hover:text-red-300 transition-colors duration-200"
-                >
-                  <Eye className="w-5 h-5" />
-                  <span>Posts</span>
-                </Link>
-                <Link
                   to="/notifications"
                   className="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300 transition-colors duration-200"
                 >
@@ -189,16 +182,6 @@ const Navbar = () => {
                 >
                   <MessageSquareMore className="w-5 h-5" />
                   <span>Messages</span>
-                </Link>
-                <Link
-                  to="/posts"
-                  className="flex items-center space-x-3 p-3 text-red-400 hover:text-red-300 transition-colors duration-200"
-                  onClick={() => {
-                    setIsMobileMenuOpen(false);
-                  }}
-                >
-                  <Eye className="w-5 h-5" />
-                  <span>Posts</span>
                 </Link>
                 <Link
                   to="/notifications"
