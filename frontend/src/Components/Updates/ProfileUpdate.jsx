@@ -24,8 +24,8 @@ const ProfileUpdate = () => {
     setUser,
     posts,
     setPosts,
-    fetchUser,
-    fetchComments,
+    // fetchUser,
+    // fetchComments,
     fetchPosts,
     setCommentIdForFetching,
   } = useContext(AppContext);
@@ -132,7 +132,9 @@ const ProfileUpdate = () => {
 
       const data = await res.json();
       if (res.ok) {
-        toast.success("Post updated successfully");
+        toast.success("Post updated successfully", {
+          autoClose: 1000,
+        });
         const updatedPosts = posts.map((p) =>
           p._id === editPostId ? { ...p, ...data.post } : p
         );
@@ -305,12 +307,12 @@ const ProfileUpdate = () => {
     }
   };
 
-  useEffect(() => {
-    fetchComments();
-    if (openCommentBoxId) {
-      fetchUser();
-    }
-  }, [openCommentBoxId]);
+  // useEffect(() => {
+  //   fetchComments();
+  //   if (openCommentBoxId) {
+  //     fetchUser();
+  //   }
+  // }, [openCommentBoxId]);
 
   if (!user) {
     return (
