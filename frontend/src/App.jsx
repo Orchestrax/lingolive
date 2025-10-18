@@ -4,6 +4,7 @@ import { Loader } from 'lucide-react';
 import AppContext from "./Context/UseContext";
 import Navbar from "./Components/Common/Navbar";
 import NotificationPopupManager from "./Context/NotificationProvider";
+import Loading from "./Loading";
 
 const Home = lazy(() => import("./pages/Home"));
 const Profile = lazy(() => import("./pages/Profile"));
@@ -24,7 +25,7 @@ const App = () => {
   return (
     <div className="bg-gradient-to-br from-gray-900 via-gray-950 to-black min-h-screen text-gray-100">
       <Navbar />
-      <Suspense fallback={<div className="flex items-center justify-center h-screen"><Loader className="h-10 w-10 animate-spin" /></div>}>
+      <Suspense fallback={<Loading />}>
         <Routes>
           <Route path="/" element={auth ? <Home /> : <Login />} />
           <Route path="/profile" element={auth ? <Profile /> : <Login />} />
