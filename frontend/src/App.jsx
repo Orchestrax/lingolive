@@ -20,7 +20,7 @@ const Message = lazy(() => import("./pages/Message"));
 const App = () => {
   const { auth, loading } = useContext(AppContext);
 
-    if (loading) return <div className="text-center mt-10">Loading...</div>;
+    if (loading) <Loading />;
 
   return (
     <div className="bg-gradient-to-br from-gray-900 via-gray-950 to-black min-h-screen text-gray-100">
