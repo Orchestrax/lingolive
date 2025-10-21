@@ -45,11 +45,14 @@ export const WebRTCProvider = ({ children }) => {
 
     // Handle ICE candidates
     peerConnection.current.onicecandidate = (event) => {
-      if (event.candidate) {
-        socket.emit('ice-candidate', {
-          candidate: event.candidate,
-          receiverId: receiver?._id
-        });
+      if (event.candidate && socket) {
+        const targetUserId = caller?._id || receiver?._id;
+        if (targetUserId) {
+          socket.emit('ice-candidate', {
+            candidate: event.candidate,
+            receiverId: targetUserId
+          });
+        }
       }
     };
 
@@ -253,9 +256,19 @@ export const WebRTCProvider = ({ children }) => {
 
   // Socket event listeners
   const setupSocketListeners = () => {
-    if (!socket) return;
+    if (!socket) {
+      console.log('No socket available for WebRTC setup');
+      return;
+    }
 
-    console.log('Setting up WebRTC socket listeners...');
+    console.log('🔌 Setting up WebRTC socket listeners...');
+
+    // Remove existing listeners to prevent duplicates
+    socket.off('incoming-call');
+    socket.off('call-answered');
+    socket.off('call-rejected');
+    socket.off('call-ended');
+    socket.off('ice-candidate');
 
     // Incoming call
     socket.on('incoming-call', async (data) => {
@@ -294,7 +307,10 @@ export const WebRTCProvider = ({ children }) => {
       console.log('📞 Call rejected');
       setCallStatus('idle');
       setCaller(null);
-      alert('Call was rejected');
+      // Show a more user-friendly notification
+      if (window.confirm) {
+        alert('Call was rejected');
+      }
     });
 
     // Call ended
@@ -322,6 +338,17 @@ export const WebRTCProvider = ({ children }) => {
       console.log('Socket available, setting up WebRTC listeners');
       setupSocketListeners();
     }
+    
+    // Cleanup function
+    return () => {
+      if (socket) {
+        socket.off('incoming-call');
+        socket.off('call-answered');
+        socket.off('call-rejected');
+        socket.off('call-ended');
+        socket.off('ice-candidate');
+      }
+    };
   }, [socket]);
 
   // Cleanup

@@ -7,6 +7,7 @@ import NotificationPopupManager from "./Context/NotificationProvider";
 import Loading from "./Loading";
 import { WebRTCProvider } from "./Context/WebRTCContext";
 import VideoCall from "./Components/Calls/VideoCall";
+import SocketStatus from "./Components/Common/SocketStatus";
 
 const Home = lazy(() => import("./pages/Home"));
 const Profile = lazy(() => import("./pages/Profile"));
@@ -44,6 +45,7 @@ const App = () => {
         </Suspense>
         <NotificationPopupManager />
         <VideoCall />
+        <SocketStatus />
       </div>
     </WebRTCProvider>
   );

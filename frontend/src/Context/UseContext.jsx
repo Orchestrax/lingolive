@@ -2,6 +2,14 @@ import { createContext, useEffect, useState } from "react";
 
 const AppContext = createContext();
 
+// Utility function to get API URL
+const getApiUrl = () => {
+  return import.meta.env.VITE_API_URL || 
+    (process.env.NODE_ENV === 'development' 
+      ? "http://localhost:5000" 
+      : "https://lingolive.onrender.com");
+};
+
 export const AppProvider = ({ children }) => {
   const [user, setUser] = useState();
   const [allUser, setAllUser] = useState([]);
@@ -21,7 +29,7 @@ export const AppProvider = ({ children }) => {
   try {
     setLoading(true);
     const response = await fetch(
-      "https://lingolive.onrender.com/api/auth/me",
+      `${getApiUrl()}/api/auth/me`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -53,7 +61,7 @@ export const AppProvider = ({ children }) => {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch("https://lingolive.onrender.com/api/posts", {
+      const response = await fetch(`${getApiUrl()}/api/posts`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -72,7 +80,7 @@ export const AppProvider = ({ children }) => {
   const fetchComments = async () => {
     try {
       const res = await fetch(
-        `https://lingolive.onrender.com/api/posts/${commentIdForFetching}/comment`,
+        `${getApiUrl()}/api/posts/${commentIdForFetching}/comment`,
         {
           method: "GET",
           headers: {
@@ -92,7 +100,7 @@ export const AppProvider = ({ children }) => {
   const fetchAllUser = async () => {
     try {
       const res = await fetch(
-        "https://lingolive.onrender.com/api/auth/AllUser",
+        `${getApiUrl()}/api/auth/AllUser`,
         {
           method: "GET",
           headers: {
@@ -112,7 +120,7 @@ export const AppProvider = ({ children }) => {
   const fetchFriendRequests = async () => {
     try {
       const res = await fetch(
-        "https://lingolive.onrender.com/api/friends/requests",
+        `${getApiUrl()}/api/friends/requests`,
         {
           method: "GET",
           headers: {
@@ -132,7 +140,7 @@ export const AppProvider = ({ children }) => {
   const fetchFriendlist = async () => {
     try {
       const res = await fetch(
-        "https://lingolive.onrender.com/api/friends/list",
+        `${getApiUrl()}/api/friends/list`,
         {
           method: "GET",
           headers: {
@@ -153,7 +161,7 @@ export const AppProvider = ({ children }) => {
   const fetchNotifications = async () => {
     try {
       const res = await fetch(
-        "https://lingolive.onrender.com/api/notifications",
+        `${getApiUrl()}/api/notifications`,
         {
           credentials: "include",
         }
