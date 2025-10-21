@@ -1,6 +1,7 @@
 import { createContext, useContext, useRef, useState } from "react";
 import { useSocket } from "./SocketContext";
 import AppContext from "./UseContext";
+import { debugCall } from "../utils/callDebug";
 
 const WebRTCContext = createContext();
 
@@ -95,6 +96,10 @@ export const WebRTCProvider = ({ children }) => {
   // Start a call
   const startCall = async (receiverUser, type = 'video') => {
     try {
+      console.log('🚀 Starting call to:', receiverUser);
+      console.log('🚀 Current user:', user);
+      console.log('🚀 Socket available:', !!socket);
+      
       setCallType(type);
       setReceiver(receiverUser);
       setCallStatus('calling');
@@ -109,8 +114,7 @@ export const WebRTCProvider = ({ children }) => {
       const offer = await peerConnection.current.createOffer();
       await peerConnection.current.setLocalDescription(offer);
       
-      // Send call request with caller info
-      socket.emit('call-user', {
+      const callData = {
         receiverId: receiverUser._id,
         offer: offer,
         callType: type,
@@ -119,7 +123,13 @@ export const WebRTCProvider = ({ children }) => {
           username: user.username,
           profilePic: user.profilePic
         }
-      });
+      };
+      
+      console.log('📞 Sending call request:', callData);
+      debugCall.logCallData(callData);
+      
+      // Send call request with caller info
+      socket.emit('call-user', callData);
       
     } catch (error) {
       console.error('Error starting call:', error);
@@ -236,29 +246,33 @@ export const WebRTCProvider = ({ children }) => {
   const setupSocketListeners = () => {
     if (!socket) return;
 
+    console.log('Setting up WebRTC socket listeners...');
+
     // Incoming call
     socket.on('incoming-call', async (data) => {
-      console.log('Incoming call:', data);
+      console.log('📞 Incoming call received:', data);
+      debugCall.logIncomingCall(data);
       setCaller(data.caller);
       setCallType(data.callType);
       setCallStatus('ringing');
       
       // Store the offer for when user answers
       if (data.offer) {
-        // Store offer in a ref or state for later use
+        console.log('📞 Storing offer for later use');
         window.pendingOffer = data.offer;
       }
     });
 
     // Call answered
     socket.on('call-answered', async (data) => {
-      console.log('Call answered:', data);
+      console.log('📞 Call answered:', data);
       setCallStatus('connected');
       setIsCallActive(true);
       
       // Set remote description from answer
       if (data.answer && peerConnection.current) {
         try {
+          console.log('📞 Setting remote description from answer');
           await peerConnection.current.setRemoteDescription(data.answer);
         } catch (error) {
           console.error('Error setting remote description:', error);
@@ -268,7 +282,7 @@ export const WebRTCProvider = ({ children }) => {
 
     // Call rejected
     socket.on('call-rejected', () => {
-      console.log('Call rejected');
+      console.log('📞 Call rejected');
       setCallStatus('idle');
       setCaller(null);
       alert('Call was rejected');
@@ -276,13 +290,13 @@ export const WebRTCProvider = ({ children }) => {
 
     // Call ended
     socket.on('call-ended', () => {
-      console.log('Call ended');
+      console.log('📞 Call ended');
       endCall();
     });
 
     // ICE candidate received
     socket.on('ice-candidate', async (data) => {
-      console.log('ICE candidate received:', data);
+      console.log('🧊 ICE candidate received:', data);
       if (peerConnection.current && data.candidate) {
         try {
           await peerConnection.current.addIceCandidate(data.candidate);
@@ -292,6 +306,14 @@ export const WebRTCProvider = ({ children }) => {
       }
     });
   };
+
+  // Set up socket listeners when socket is available
+  useEffect(() => {
+    if (socket) {
+      console.log('Socket available, setting up WebRTC listeners');
+      setupSocketListeners();
+    }
+  }, [socket]);
 
   // Cleanup
   const cleanup = () => {

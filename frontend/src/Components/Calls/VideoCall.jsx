@@ -33,6 +33,11 @@ const VideoCall = () => {
     setupSocketListeners
   } = useWebRTC();
 
+  // Debug caller information
+  console.log('🎥 VideoCall - Caller:', caller);
+  console.log('🎥 VideoCall - Call Status:', callStatus);
+  console.log('🎥 VideoCall - Call Type:', callType);
+
   const [isMinimized, setIsMinimized] = useState(false);
 
   useEffect(() => {

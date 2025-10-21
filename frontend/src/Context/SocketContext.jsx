@@ -16,13 +16,33 @@ export const SocketProvider = ({ children }) => {
   useEffect(() => {
     if (!user?._id) return;
 
-    const newSocket = io("https://lingolive.onrender.com", {
+    // Use local backend for development, production for deployment
+    const socketUrl = process.env.NODE_ENV === 'development' 
+      ? "http://localhost:5000" 
+      : "https://lingolive.onrender.com";
+    
+    console.log("🔌 Connecting to socket:", socketUrl);
+    
+    const newSocket = io(socketUrl, {
       query: { userId: user._id },
       withCredentials: true,
       transports: ["websocket"],
     });
 
     setSocket(newSocket);
+
+    // Add connection debugging
+    newSocket.on("connect", () => {
+      console.log("🔌 Socket connected:", newSocket.id);
+    });
+
+    newSocket.on("disconnect", () => {
+      console.log("🔌 Socket disconnected");
+    });
+
+    newSocket.on("connect_error", (error) => {
+      console.error("🔌 Socket connection error:", error);
+    });
 
     // Join user room
     newSocket.emit("joinRoom", user._id);
