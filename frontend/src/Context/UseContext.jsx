@@ -4,10 +4,12 @@ const AppContext = createContext();
 
 // Utility function to get API URL
 const getApiUrl = () => {
-  return import.meta.env.VITE_API_URL || 
-    (process.env.NODE_ENV === 'development' 
-      ? "http://localhost:5000" 
-      : "https://lingolive.onrender.com");
+  return (
+    import.meta.env.VITE_API_URL ||
+    (process.env.NODE_ENV === "development"
+      ? "http://localhost:5000"
+      : "https://lingolive.onrender.com")
+  );
 };
 
 export const AppProvider = ({ children }) => {
@@ -23,41 +25,44 @@ export const AppProvider = ({ children }) => {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const [auth, setAuth] = useState(() => localStorage.getItem("auth") === "true");
+  const [auth, setAuth] = useState(
+    () => localStorage.getItem("auth") === "true"
+  );
 
   const fetchUser = async () => {
-  try {
-    setLoading(true);
-    const response = await fetch(
-      `${getApiUrl()}/api/auth/me`,
-      {
+    try {
+      setLoading(true);
+      const response = await fetch(`${getApiUrl()}/api/auth/me`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-      }
-    );
+      });
 
-    if (!response.ok) {
-      // Token expired or invalid
+      if (!response.ok) {
+        // Token expired or invalid
+        setAuth(false);
+        localStorage.setItem("auth", "false");
+        setUser(null);
+        return;
+      }
+
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem("auth", "true");
+        localStorage.setItem("user", JSON.stringify(data.user)); // ✅ store user persistently
+      }
+
+      setAuth(true);
+      localStorage.setItem("auth", "true");
+    } catch (err) {
+      console.error("Error fetching user:", err.message);
       setAuth(false);
       localStorage.setItem("auth", "false");
       setUser(null);
-      return;
     }
-
-    const data = await response.json();
-    setUser(data.user);
-    setAuth(true);
-    localStorage.setItem("auth", "true");
-  } catch (err) {
-    console.error("Error fetching user:", err.message);
-    setAuth(false);
-    localStorage.setItem("auth", "false");
-    setUser(null);
-  }
-  setLoading(false);
-};
-
+    setLoading(false);
+  };
 
   const fetchPosts = async () => {
     try {
@@ -99,16 +104,13 @@ export const AppProvider = ({ children }) => {
 
   const fetchAllUser = async () => {
     try {
-      const res = await fetch(
-        `${getApiUrl()}/api/auth/AllUser`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      );
+      const res = await fetch(`${getApiUrl()}/api/auth/AllUser`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
       const data = await res.json();
       console.log("Fetched all users:", data);
       setAllUser(data.data); // assuming your API returns { data: [...] }
@@ -119,16 +121,13 @@ export const AppProvider = ({ children }) => {
 
   const fetchFriendRequests = async () => {
     try {
-      const res = await fetch(
-        `${getApiUrl()}/api/friends/requests`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      );
+      const res = await fetch(`${getApiUrl()}/api/friends/requests`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
       const data = await res.json();
       console.log("Fetched friend requests:", data);
       setRequests(data.requests || []);
@@ -139,16 +138,13 @@ export const AppProvider = ({ children }) => {
 
   const fetchFriendlist = async () => {
     try {
-      const res = await fetch(
-        `${getApiUrl()}/api/friends/list`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      );
+      const res = await fetch(`${getApiUrl()}/api/friends/list`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
       const data = await res.json();
       console.log("Fetched friend list:", data);
       // You can set this data to a state if needed
@@ -160,12 +156,9 @@ export const AppProvider = ({ children }) => {
 
   const fetchNotifications = async () => {
     try {
-      const res = await fetch(
-        `${getApiUrl()}/api/notifications`,
-        {
-          credentials: "include",
-        }
-      );
+      const res = await fetch(`${getApiUrl()}/api/notifications`, {
+        credentials: "include",
+      });
       const data = await res.json();
       console.log("Fetched notifications: ", data);
       setNotifications(data.notifications || []);
@@ -177,20 +170,19 @@ export const AppProvider = ({ children }) => {
   };
 
   useEffect(() => {
-  const init = async () => {
-    await fetchUser();
-    await Promise.all([
-      fetchPosts(),
-      fetchAllUser(),
-      fetchFriendRequests(),
-      fetchFriendlist(),
-      fetchNotifications()
-    ]);
-    setLoading(false);
-  };
-  init();
-}, []);
-
+    const init = async () => {
+      await fetchUser();
+      await Promise.all([
+        fetchPosts(),
+        fetchAllUser(),
+        fetchFriendRequests(),
+        fetchFriendlist(),
+        fetchNotifications(),
+      ]);
+      setLoading(false);
+    };
+    init();
+  }, []);
 
   useEffect(() => {
     if (commentIdForFetching) {
