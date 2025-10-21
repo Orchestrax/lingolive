@@ -33,6 +33,45 @@ io.on("connection", (socket) => {
     io.emit("onlineUsers", Array.from(onlineUsers.keys()));
   });
 
+  // Call signaling events
+  socket.on("call-user", (data) => {
+    console.log("📞 Call request:", data);
+    const { receiverId, offer, callType } = data;
+    
+    // Get caller info from socket query or session
+    const callerId = socket.handshake.query.userId;
+    
+    socket.to(receiverId).emit("incoming-call", {
+      caller: { _id: callerId },
+      offer: offer,
+      callType: callType
+    });
+  });
+
+  socket.on("call-answer", (data) => {
+    console.log("📞 Call answered:", data);
+    const { callerId, answer } = data;
+    socket.to(callerId).emit("call-answered", { answer });
+  });
+
+  socket.on("call-reject", (data) => {
+    console.log("📞 Call rejected:", data);
+    const { callerId } = data;
+    socket.to(callerId).emit("call-rejected");
+  });
+
+  socket.on("call-end", (data) => {
+    console.log("📞 Call ended:", data);
+    const { receiverId } = data;
+    socket.to(receiverId).emit("call-ended");
+  });
+
+  socket.on("ice-candidate", (data) => {
+    console.log("🧊 ICE candidate:", data);
+    const { receiverId, candidate } = data;
+    socket.to(receiverId).emit("ice-candidate", { candidate });
+  });
+
   socket.on("disconnect", () => {
     console.log("🔴 User disconnected:", socket.id);
     for (let [userId, sockId] of onlineUsers.entries()) {

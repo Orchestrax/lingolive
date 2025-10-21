@@ -3,6 +3,7 @@ import { useSocket } from "../../Context/SocketContext";
 import { Send, FolderUpIcon } from "lucide-react";
 import "remixicon/fonts/remixicon.css";
 import { useNavigate } from "react-router-dom";
+import CallButton from "../Calls/CallButton";
 
 const ChatPage = ({ selectedUser, onOpenSidebar }) => {
   const navigate = useNavigate();
@@ -142,7 +143,7 @@ const ChatPage = ({ selectedUser, onOpenSidebar }) => {
           alt="profile"
           className="w-10 h-10 rounded-full object-cover"
         />
-        <div>
+        <div className="flex-1">
           <h2 className="text-white font-semibold text-lg" onClick={()=>{navigate(`/profile/${selectedUser._id}`)}}>
             @{selectedUser.username}
           </h2>
@@ -150,6 +151,12 @@ const ChatPage = ({ selectedUser, onOpenSidebar }) => {
             {onlineUsers.includes(selectedUser._id) ? "🟢Online" : "🔴Offline"}
           </p>
         </div>
+        
+        {/* Call Button */}
+        <CallButton 
+          selectedUser={selectedUser} 
+          isOnline={onlineUsers.includes(selectedUser._id)} 
+        />
       </div>
 
       {/* Messages */}

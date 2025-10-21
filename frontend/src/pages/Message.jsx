@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import FriendsSidebar from "../Components/Messages/FriendSideBar";
 import ChatPage from "../Components/Messages/ChatPage";
+import CallHistory from "../Components/Calls/CallHistory";
 
 const Message = () => {
   const [selectedUser, setSelectedUser] = useState(null);
@@ -54,15 +55,22 @@ const Message = () => {
             />
           </div>
         ) : (
-          <div className="h-full w-full flex items-center justify-center p-6 text-gray-400">
-            <div className="text-center">
-              <p className="text-base md:text-lg">Select a friend to start chatting</p>
-              <button
-                className="mt-4 inline-flex md:hidden items-center px-3 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white text-sm"
-                onClick={() => setIsSidebarOpen(true)}
-              >
-                Open Chats
-              </button>
+          <div className="h-full w-full flex flex-col lg:flex-row gap-6 p-6 text-gray-400">
+            <div className="flex-1 flex items-center justify-center">
+              <div className="text-center">
+                <p className="text-base md:text-lg">Select a friend to start chatting</p>
+                <button
+                  className="mt-4 inline-flex md:hidden items-center px-3 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white text-sm"
+                  onClick={() => setIsSidebarOpen(true)}
+                >
+                  Open Chats
+                </button>
+              </div>
+            </div>
+            
+            {/* Call History */}
+            <div className="w-full lg:w-80">
+              <CallHistory />
             </div>
           </div>
         )}

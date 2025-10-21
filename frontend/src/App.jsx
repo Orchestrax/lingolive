@@ -5,6 +5,8 @@ import AppContext from "./Context/UseContext";
 import Navbar from "./Components/Common/Navbar";
 import NotificationPopupManager from "./Context/NotificationProvider";
 import Loading from "./Loading";
+import { WebRTCProvider } from "./Context/WebRTCContext";
+import VideoCall from "./Components/Calls/VideoCall";
 
 const Home = lazy(() => import("./pages/Home"));
 const Profile = lazy(() => import("./pages/Profile"));
@@ -23,24 +25,27 @@ const App = () => {
     if (loading) <Loading />;
 
   return (
-    <div className="bg-gradient-to-br from-gray-900 via-gray-950 to-black min-h-screen text-gray-100">
-      <Navbar />
-      <Suspense fallback={<Loading />}>
-        <Routes>
-          <Route path="/" element={auth ? <Home /> : <Login />} />
-          <Route path="/profile" element={auth ? <Profile /> : <Login />} />
-          <Route path="/signup" element={auth ? <Home /> : <Signup />} />
-          <Route path="/login" element={auth ? <Home /> : <Login />} />
-          <Route path="/create-post" element={auth ? <CreatePost /> : <Login />} />
-          <Route path="/posts" element={auth ? <ShowPost /> : <Login />} />
-          <Route path="/connections" element={auth ? <Connection /> : <Login />} />
-          <Route path="/profile/:id" element={auth ? <User_Profile /> : <Login />} />
-          <Route path="/notifications" element={auth ? <Notification /> : <Login />} />
-          <Route path="/message" element={auth ? <Message /> : <Login />} />
-        </Routes>
-      </Suspense>
-      <NotificationPopupManager />
-    </div>
+    <WebRTCProvider>
+      <div className="bg-gradient-to-br from-gray-900 via-gray-950 to-black min-h-screen text-gray-100">
+        <Navbar />
+        <Suspense fallback={<Loading />}>
+          <Routes>
+            <Route path="/" element={auth ? <Home /> : <Login />} />
+            <Route path="/profile" element={auth ? <Profile /> : <Login />} />
+            <Route path="/signup" element={auth ? <Home /> : <Signup />} />
+            <Route path="/login" element={auth ? <Home /> : <Login />} />
+            <Route path="/create-post" element={auth ? <CreatePost /> : <Login />} />
+            <Route path="/posts" element={auth ? <ShowPost /> : <Login />} />
+            <Route path="/connections" element={auth ? <Connection /> : <Login />} />
+            <Route path="/profile/:id" element={auth ? <User_Profile /> : <Login />} />
+            <Route path="/notifications" element={auth ? <Notification /> : <Login />} />
+            <Route path="/message" element={auth ? <Message /> : <Login />} />
+          </Routes>
+        </Suspense>
+        <NotificationPopupManager />
+        <VideoCall />
+      </div>
+    </WebRTCProvider>
   );
 };
 
