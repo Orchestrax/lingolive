@@ -5,9 +5,6 @@ import AppContext from "./Context/UseContext";
 import Navbar from "./Components/Common/Navbar";
 import NotificationPopupManager from "./Context/NotificationProvider";
 import Loading from "./Loading";
-import { WebRTCProvider } from "./Context/WebRTCContext";
-import VideoCall from "./Components/Calls/VideoCall";
-import SocketStatus from "./Components/Common/SocketStatus";
 
 const Home = lazy(() => import("./pages/Home"));
 const Profile = lazy(() => import("./pages/Profile"));
@@ -26,7 +23,6 @@ const App = () => {
     if (loading) <Loading />;
 
   return (
-    <WebRTCProvider>
       <div className="bg-gradient-to-br from-gray-900 via-gray-950 to-black min-h-screen text-gray-100">
         <Navbar />
         <Suspense fallback={<Loading />}>
@@ -44,10 +40,7 @@ const App = () => {
           </Routes>
         </Suspense>
         <NotificationPopupManager />
-        <VideoCall />
-        <SocketStatus />
       </div>
-    </WebRTCProvider>
   );
 };
 
