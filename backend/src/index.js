@@ -36,13 +36,13 @@ io.on("connection", (socket) => {
   // Call signaling events
   socket.on("call-user", (data) => {
     console.log("📞 Call request:", data);
-    const { receiverId, offer, callType } = data;
+    const { receiverId, offer, callType, callerInfo } = data;
     
     // Get caller info from socket query or session
     const callerId = socket.handshake.query.userId;
     
     socket.to(receiverId).emit("incoming-call", {
-      caller: { _id: callerId },
+      caller: callerInfo || { _id: callerId, username: 'Unknown User' },
       offer: offer,
       callType: callType
     });

@@ -1,10 +1,12 @@
 import { createContext, useContext, useRef, useState } from "react";
 import { useSocket } from "./SocketContext";
+import AppContext from "./UseContext";
 
 const WebRTCContext = createContext();
 
 export const WebRTCProvider = ({ children }) => {
   const { socket } = useSocket();
+  const { user } = useContext(AppContext);
   const [localStream, setLocalStream] = useState(null);
   const [remoteStream, setRemoteStream] = useState(null);
   const [isVideoEnabled, setIsVideoEnabled] = useState(true);
@@ -107,11 +109,16 @@ export const WebRTCProvider = ({ children }) => {
       const offer = await peerConnection.current.createOffer();
       await peerConnection.current.setLocalDescription(offer);
       
-      // Send call request
+      // Send call request with caller info
       socket.emit('call-user', {
         receiverId: receiverUser._id,
         offer: offer,
-        callType: type
+        callType: type,
+        callerInfo: {
+          _id: user._id,
+          username: user.username,
+          profilePic: user.profilePic
+        }
       });
       
     } catch (error) {
@@ -131,9 +138,20 @@ export const WebRTCProvider = ({ children }) => {
       // Get user media
       await getUserMedia(callType === 'video', true);
       
+      // Set remote description from the stored offer
+      if (window.pendingOffer) {
+        await peerConnection.current.setRemoteDescription(window.pendingOffer);
+        window.pendingOffer = null; // Clear the stored offer
+      }
+      
+      // Create answer
+      const answer = await peerConnection.current.createAnswer();
+      await peerConnection.current.setLocalDescription(answer);
+      
       // Send answer
       socket.emit('call-answer', {
-        callerId: caller._id
+        callerId: caller._id,
+        answer: answer
       });
       
     } catch (error) {
@@ -219,18 +237,33 @@ export const WebRTCProvider = ({ children }) => {
     if (!socket) return;
 
     // Incoming call
-    socket.on('incoming-call', (data) => {
+    socket.on('incoming-call', async (data) => {
       console.log('Incoming call:', data);
       setCaller(data.caller);
       setCallType(data.callType);
       setCallStatus('ringing');
+      
+      // Store the offer for when user answers
+      if (data.offer) {
+        // Store offer in a ref or state for later use
+        window.pendingOffer = data.offer;
+      }
     });
 
     // Call answered
-    socket.on('call-answered', (data) => {
+    socket.on('call-answered', async (data) => {
       console.log('Call answered:', data);
       setCallStatus('connected');
       setIsCallActive(true);
+      
+      // Set remote description from answer
+      if (data.answer && peerConnection.current) {
+        try {
+          await peerConnection.current.setRemoteDescription(data.answer);
+        } catch (error) {
+          console.error('Error setting remote description:', error);
+        }
+      }
     });
 
     // Call rejected

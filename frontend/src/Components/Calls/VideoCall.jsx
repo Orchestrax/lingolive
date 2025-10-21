@@ -64,10 +64,18 @@ const VideoCall = () => {
           ) : (
             <div className="flex items-center justify-center h-full">
               <div className="text-center text-white">
-                <div className="w-32 h-32 bg-gray-700 rounded-full flex items-center justify-center mb-4 mx-auto">
-                  <span className="text-4xl">
-                    {caller?.username?.charAt(0)?.toUpperCase() || 'U'}
-                  </span>
+                <div className="w-32 h-32 bg-gray-700 rounded-full flex items-center justify-center mb-4 mx-auto overflow-hidden">
+                  {caller?.profilePic ? (
+                    <img
+                      src={caller.profilePic}
+                      alt={caller.username}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <span className="text-4xl">
+                      {caller?.username?.charAt(0)?.toUpperCase() || 'U'}
+                    </span>
+                  )}
                 </div>
                 <h2 className="text-2xl font-semibold mb-2">
                   {caller?.username || 'Unknown User'}

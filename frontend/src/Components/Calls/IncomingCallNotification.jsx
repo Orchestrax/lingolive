@@ -29,10 +29,18 @@ const IncomingCallNotification = () => {
       <div className="bg-gray-900 rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl">
         {/* Caller Info */}
         <div className="text-center mb-6">
-          <div className="w-24 h-24 bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span className="text-3xl font-bold text-white">
-              {caller?.username?.charAt(0)?.toUpperCase() || 'U'}
-            </span>
+          <div className="w-24 h-24 bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4 overflow-hidden">
+            {caller?.profilePic ? (
+              <img
+                src={caller.profilePic}
+                alt={caller.username}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <span className="text-3xl font-bold text-white">
+                {caller?.username?.charAt(0)?.toUpperCase() || 'U'}
+              </span>
+            )}
           </div>
           <h2 className="text-2xl font-semibold text-white mb-2">
             {caller?.username || 'Unknown User'}
