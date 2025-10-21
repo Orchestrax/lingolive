@@ -4,14 +4,7 @@ import { io } from "socket.io-client";
 import AppContext from "./UseContext"; // import your main context
 
 // Utility function to get Socket URL
-const getSocketUrl = () => {
-  return (
-    import.meta.env.VITE_SOCKET_URL ||
-    (process.env.NODE_ENV === "development"
-      ? "http://localhost:5000"
-      : "https://lingolive.onrender.com")
-  );
-};
+const getSocketUrl = () => "https://lingolive.onrender.com";
 
 const SocketContext = createContext();
 
