@@ -24,12 +24,16 @@ export const SocketProvider = ({ children }) => {
   useEffect(() => {
     if (!user?._id) return;
 
+<<<<<<< HEAD
     // Use local backend for development, production for deployment
     const socketUrl = getSocketUrl();
     
     console.log("🔌 Connecting to socket:", socketUrl);
     
     const newSocket = io(socketUrl, {
+=======
+    const newSocket = io("https://lingolive.onrender.com", {
+>>>>>>> 6405882 (last phase)
       query: { userId: user._id },
       withCredentials: true,
       transports: ["websocket", "polling"], // Add polling as fallback
@@ -39,6 +43,7 @@ export const SocketProvider = ({ children }) => {
 
     setSocket(newSocket);
 
+<<<<<<< HEAD
     // Add connection debugging
     newSocket.on("connect", () => {
       console.log("🔌 Socket connected:", newSocket.id);
@@ -61,6 +66,12 @@ export const SocketProvider = ({ children }) => {
 
     newSocket.on("reconnect", (attemptNumber) => {
       console.log("🔌 Socket reconnected after", attemptNumber, "attempts");
+=======
+    // Join user room
+    newSocket.emit("joinRoom", user._id);
+
+    if (user._id) {
+>>>>>>> 6405882 (last phase)
       newSocket.emit("addUser", user._id);
       newSocket.emit("joinRoom", user._id);
     });

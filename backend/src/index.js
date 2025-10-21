@@ -35,6 +35,7 @@ io.on("connection", (socket) => {
     io.emit("onlineUsers", Array.from(onlineUsers.keys()));
   });
 
+<<<<<<< HEAD
   // Call signaling events
   socket.on("call-user", (data) => {
     console.log("📞 Call request received:", data);
@@ -140,6 +141,8 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("newNotification", notification);
   });
 
+=======
+>>>>>>> 6405882 (last phase)
   socket.on("disconnect", () => {
     console.log("🔴 User disconnected:", socket.id);
     for (let [userId, sockId] of onlineUsers.entries()) {
