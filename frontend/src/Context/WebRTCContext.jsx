@@ -1,4 +1,4 @@
-import { createContext, useContext, useRef, useState } from "react";
+import { createContext, useContext, useRef, useState, useEffect } from "react";
 import { useSocket } from "./SocketContext";
 import AppContext from "./UseContext";
 import { debugCall } from "../utils/callDebug";
@@ -12,7 +12,7 @@ export const WebRTCProvider = ({ children }) => {
   const [remoteStream, setRemoteStream] = useState(null);
   const [isVideoEnabled, setIsVideoEnabled] = useState(true);
   const [isAudioEnabled, setIsAudioEnabled] = useState(true);
-  const [isCallActive, setIsCallActive] = useState(false);
+  const [isCallActive, setIsCallActive] = useState(false);  
   const [callType, setCallType] = useState(null); // 'video' or 'audio'
   const [caller, setCaller] = useState(null);
   const [receiver, setReceiver] = useState(null);
@@ -69,6 +69,7 @@ export const WebRTCProvider = ({ children }) => {
   // Get user media (camera and microphone)
   const getUserMedia = async (video = true, audio = true) => {
     try {
+      // Request user permission first
       const stream = await navigator.mediaDevices.getUserMedia({
         video: video ? { width: 640, height: 480 } : false,
         audio: audio
@@ -84,6 +85,14 @@ export const WebRTCProvider = ({ children }) => {
         stream.getTracks().forEach(track => {
           peerConnection.current.addTrack(track, stream);
         });
+      }
+      
+      // Resume AudioContext if needed (fixes AudioContext warning)
+      if (audio && window.AudioContext) {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioContext.state === 'suspended') {
+          await audioContext.resume();
+        }
       }
       
       return stream;
