@@ -44,7 +44,7 @@ const Connection = () => {
   };
 
   if (loading) return (
-    <div className="bg-gradient-to-br from-gray-900 via-gray-950 to-black min-h-screen text-gray-100 flex items-center justify-center">
+    <div className="bg-[#050A15] min-h-screen text-gray-100 flex items-center justify-center">
       <div className="flex flex-col items-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mb-4"></div>
         <p className="text-lg">Loading your connections...</p>
@@ -57,7 +57,7 @@ const Connection = () => {
       {/* Enhanced Sidebar Section */}
       <div className="mx-2 space-y-4 lg:sticky lg:top-0">
         {/* User Profile Card */}
-        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-4 border border-gray-700 shadow-lg">
+        <div className="bg-[#050A15] rounded-xl p-4 border border-gray-700 shadow-lg">
           <div className="flex items-center space-x-3 mb-3">
             <div className="relative">
               <img src={user?.profilePic || "/avatar.svg"} alt="" className="w-12 h-12 rounded-full" />
@@ -87,7 +87,7 @@ const Connection = () => {
         </div>
 
         {/* Search Bar */}
-        <div className="bg-gray-800 rounded-xl p-3 border border-gray-700">
+        <div className="bg-[#050A15] rounded-xl p-3 border border-gray-700">
           <div className="relative">
             <input
               type="text"

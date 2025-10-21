@@ -51,7 +51,7 @@ const ShowNotification = () => {
 
   if (!user || loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-950 to-black">
+      <div className="min-h-screen flex items-center justify-center bg-[#050A15]">
         <div className="text-center space-y-4">
           <Loader className="w-10 h-10 text-blue-400 animate-spin mx-auto" />
           <p className="text-blue-300 font-light">Loading notifications...</p>
@@ -62,7 +62,7 @@ const ShowNotification = () => {
 
   if (notifications.length === 0) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-950 to-black">
+      <div className="min-h-screen flex items-center justify-center bg-[#050A15]">
         <div className="text-center space-y-6">
           <div className="w-28 h-28 bg-gradient-to-tr from-blue-600/20 to-cyan-500/10 border border-blue-400/30 rounded-full flex items-center justify-center mx-auto shadow-lg shadow-blue-900/40">
             <Bell className="w-14 h-14 text-blue-400 opacity-70" />

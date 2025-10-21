@@ -124,9 +124,9 @@ const ChatPage = ({ selectedUser, onOpenSidebar }) => {
   };
 
   return (
-    <div className="flex flex-col h-full bg-gray-900 border-l border-gray-800">
+    <div className="flex flex-col h-full bg-[#050A15] border-l border-gray-800">
       {/* Header */}
-      <div className="flex items-center gap-3 p-4 border-b border-gray-800 bg-gray-900">
+      <div className="flex items-center gap-3 p-4 border-b border-gray-800 bg-[#050A15]">
         <button
           className="md:hidden mr-1 flex flex-col items-center justify-center w-9 h-9 rounded-md bg-gray-800 text-white"
           onClick={onOpenSidebar}

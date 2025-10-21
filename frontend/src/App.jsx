@@ -23,7 +23,7 @@ const App = () => {
     if (loading) <Loading />;
 
   return (
-      <div className="bg-black min-h-screen text-gray-100">
+      <div className="bg-[#050A15] min-h-screen text-gray-100">
         <Navbar />
         <Suspense fallback={<Loading />}>
           <Routes>

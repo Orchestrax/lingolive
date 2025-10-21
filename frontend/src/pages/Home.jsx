@@ -13,7 +13,7 @@ const Home = () => {
 
   if (!auth) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-950 to-black flex items-center justify-center">
+      <div className="min-h-screen bg-[#050A15] flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-3xl font-bold mb-4">Welcome to Your Dashboard</h1>
           <p className="text-gray-400 mb-6">
@@ -31,7 +31,7 @@ const Home = () => {
   }
 
   if(!user){
-    return <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-950 to-black text-white flex items-center justify-center">
+    return <div className="min-h-screen bg-[#050A15] text-white flex items-center justify-center">
       <div className="text-center">
         <Loader className="w-12 h-12 text-gray-500 animate-spin mx-auto mb-4" />
       </div>
@@ -39,7 +39,7 @@ const Home = () => {
   }
 
   return (
-    <div className="bg-gradient-to-br from-gray-900 via-gray-950 to-black text-white">
+    <div className="bg-[#050A15] text-white">
       {/* Navigation Header */}
 
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

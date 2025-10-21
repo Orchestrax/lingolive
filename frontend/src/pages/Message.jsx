@@ -19,7 +19,7 @@ const Message = () => {
   }, []);
 
   return (
-    <div className="relative flex h-screen bg-gradient-to-br from-gray-900 via-gray-950 to-black text-white">
+    <div className="relative flex h-screen bg-[#050A15] text-white">
       {/* Mobile overlay */}
       {isSidebarOpen && (
         <div

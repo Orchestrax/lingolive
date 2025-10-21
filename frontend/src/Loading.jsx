@@ -3,7 +3,7 @@ import { Loader } from 'lucide-react';
 
 const Loading = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-600 via-blue-950 to-black flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[#050A15] flex items-center justify-center p-4">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Animated gradient orbs */}

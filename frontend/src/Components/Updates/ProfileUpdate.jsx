@@ -325,7 +325,7 @@ const ProfileUpdate = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-950 to-black text-white">
+    <div className="min-h-screen bg-[#050A15] text-white">
       <div className="max-w-full mx-auto p-6 ">
         {/* Cover Photo */}
         <div className="relative h-64 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg mb-6">
