@@ -60,7 +60,7 @@ export const AppProvider = ({ children }) => {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch(`${getApiUrl}/api/posts`, {
+      const response = await fetch(`${getApiUrl()}/api/posts`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
