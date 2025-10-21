@@ -59,12 +59,12 @@ const Navbar = () => {
 
             <path
               d="M 10 75 Q 70 45 150 70 C 180 80 220 70 280 50 Q 300 40 310 45"
-              stroke="#1abc9c"
+              stroke="#D5B03A"
               strokeWidth="4"
               fill="none"
               opacity="0.7"
             />
-            <circle cx="285" cy="48" r="8" fill="#1abc9c" />
+            <circle cx="285" cy="48" r="8" fill="#fff" />
           </svg>
 
           {/* Desktop Navigation */}
