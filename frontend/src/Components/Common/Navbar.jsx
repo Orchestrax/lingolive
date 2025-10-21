@@ -36,7 +36,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex items-center justify-between p-4 bg-gray-800 border-b border-b-amber-500 shadow-lg">
+    <nav className="flex items-center justify-between p-4 bg-gray-800 border-b-2 border-b-amber-500 shadow-lg">
       <div className="w-full">
         <div className="flex justify-between items-center h-10">
           {/* <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-amber-500">LingOLive</h1> */}
@@ -50,10 +50,10 @@ const Navbar = () => {
               fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
             }}
           >
-            <text x="20" y="65" fontSize="55" fill="#2c3e50" fontWeight="bold">
+            <text x="20" y="65" fontSize="55" fill="#D5B03A" fontWeight="bold">
               Lingo
             </text>
-            <text x="175" y="65" fontSize="55" fill="#1abc9c" fontWeight="bold">
+            <text x="175" y="65" fontSize="55" fill="#D5B01A" fontWeight="bold">
               live
             </text>
 

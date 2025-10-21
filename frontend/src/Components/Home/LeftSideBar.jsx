@@ -6,7 +6,7 @@ const LeftSideBar = () => {
 
   return (
     <div>
-      <div className="bg-gray-800 rounded-lg p-6 mb-6">
+      <div className="bg-[#091530] rounded-lg p-6 mb-6">
         <div className="text-center">
           <div className="w-20 h-20 rounded-full bg-[#091530] flex items-center justify-center overflow-hidden mx-auto mb-4">
             {user.profilePic ? (

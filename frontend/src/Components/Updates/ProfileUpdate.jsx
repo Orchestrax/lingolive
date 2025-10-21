@@ -716,7 +716,7 @@ const ProfileUpdate = () => {
             .map((post) => (
               <div
                 key={post._id}
-                className="bg-gray-800 rounded-2xl shadow-lg p-4 space-y-3 max-w-4xl mb-6 mx-auto relative"
+                className="bg-gray-950 rounded-2xl shadow-lg p-4 space-y-3 max-w-4xl mb-6 mx-auto relative"
               >
                 {/* User Info */}
                 <div className="flex items-center justify-between">
