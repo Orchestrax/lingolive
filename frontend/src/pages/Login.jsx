@@ -31,7 +31,7 @@ const Login = () => {
       });
 
       const data = await response.json();
-      console.log('Server response:', data.user);
+      ('Server response:', data.user);
       setUser(data.user); // Update user context
 
       if (response.ok) {

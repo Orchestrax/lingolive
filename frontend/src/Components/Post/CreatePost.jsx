@@ -89,7 +89,7 @@ const CreatePost = () => {
         credentials: "include",
       });
       const data = await res.json();
-      console.log("Post created:", data);
+      ("Post created:", data);
       handleClear();
     } catch (err) {
       console.error("Error creating post:", err.message);

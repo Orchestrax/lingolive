@@ -20,21 +20,21 @@ export let onlineUsers = new Map();
 
 // Handle user connections
 io.on("connection", (socket) => {
-  console.log("🟢 User connected:", socket.id);
+  ("🟢 User connected:", socket.id);
 
   socket.on("joinRoom", (userId) => {
     socket.join(userId);
-    console.log(`User ${userId} joined their room`);
+    (`User ${userId} joined their room`);
   });
 
   socket.on("addUser", (userId) => {
     onlineUsers.set(userId, socket.id);
-    console.log("Online Users:", onlineUsers);
+    ("Online Users:", onlineUsers);
     io.emit("onlineUsers", Array.from(onlineUsers.keys()));
   });
 
   socket.on("disconnect", () => {
-    console.log("🔴 User disconnected:", socket.id);
+    ("🔴 User disconnected:", socket.id);
     for (let [userId, sockId] of onlineUsers.entries()) {
       if (sockId === socket.id) {
         onlineUsers.delete(userId);
@@ -50,9 +50,9 @@ io.on("connection", (socket) => {
 connectDB()
   .then(() => {
     server.listen(PORT, () => {
-      console.log(`Server running on http://localhost:${PORT}`);
+      (`Server running on http://localhost:${PORT}`);
     });
   })
   .catch((err) => {
-    console.log("Failed to connect to DB", err);
+    ("Failed to connect to DB", err);
   });

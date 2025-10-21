@@ -75,7 +75,7 @@ const ShowPost = () => {
       );
 
       const data = await response.json();
-      console.log("Like response:", data);
+      ("Like response:", data);
 
       if (!response.ok) {
         throw new Error(data.message || "Failed to like post");

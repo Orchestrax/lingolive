@@ -37,7 +37,7 @@ const ChatPage = ({ selectedUser, onOpenSidebar }) => {
           }
         );
         const data = await res.json();
-        console.log("Fetched messages:", data);
+        ("Fetched messages:", data);
         setMessages(data || []);
       } catch (error) {
         console.error("Error fetching messages:", error);

@@ -7,7 +7,7 @@ const RightSideBar = () => {
   const { user } = useContext(AppContext);
   return (
     <div>
-      <div className="bg-gray-800 rounded-lg p-6 mb-2">
+      <div className="bg-[#091530] rounded-lg p-6 mb-2">
         <h3 className="text-lg font-semibold mb-4">Contact Info</h3>
         <div className="space-y-3">
           {user.email && (
@@ -54,7 +54,7 @@ const RightSideBar = () => {
 
       {/* Interests */}
       {user.interests && user.interests.length > 0 && (
-        <div className="bg-gray-800 rounded-lg p-6 mb-2">
+        <div className="bg-[#091530] rounded-lg p-6 mb-2">
           <h3 className="text-lg font-semibold mb-4">Interests</h3>
           <div className="flex flex-wrap gap-2">
             {user.interests.map((interest, index) => (
@@ -72,7 +72,7 @@ const RightSideBar = () => {
       {/* Social Links */}
       {user.socialLinks &&
         Object.values(user.socialLinks).some((link) => link) && (
-          <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl px-6 py-4 shadow-lg border border-gray-700/50">
+          <div className="bg-gradient-to-br from-[#091530] to-[#091530] rounded-xl px-6 py-4 shadow-lg border border-gray-700/50">
             <h3 className="text-xl font-bold mb-4 text-white flex items-center">
               <i className="ri-share-forward-line mr-3 text-blue-400"></i>
               Connect With Me

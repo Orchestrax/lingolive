@@ -170,11 +170,11 @@ const ProfileUpdate = () => {
   };
 
   const handleShare = (id) => {
-    console.log("Share post:", id);
+    ("Share post:", id);
   };
 
   const handleSave = (id) => {
-    console.log("Save post:", id);
+    ("Save post:", id);
   };
 
   const handleLike = async (postId) => {
@@ -191,7 +191,7 @@ const ProfileUpdate = () => {
       );
 
       const data = await response.json();
-      console.log("Like response:", data);
+      ("Like response:", data);
 
       if (!response.ok) {
         throw new Error(data.message || "Failed to like post");

@@ -42,7 +42,7 @@ const ShowAllUser = () => {
       );
 
       const data = await response.json();
-      console.log("Friend request sent:", data);
+      ("Friend request sent:", data);
 
       // Remove the user from displayUsers immediately
       setDisplayUsers((prev) => prev.filter((u) => u._id !== userId));

@@ -32,13 +32,13 @@ const User_Profile = () => {
       );
         const data = await res.json();
         if (res.ok) {
-            console.log("Fetched user data:", data);
+            ("Fetched user data:", data);
             setUser(data.friend);
         } else {
             console.error("Failed to fetch user:", data.message);
         }
     } catch (err) {
-      console.log(err.message);
+      (err.message);
     }
   };
 
@@ -56,7 +56,7 @@ const User_Profile = () => {
       );
 
       const data = await response.json();
-      console.log("Like response:", data);
+      ("Like response:", data);
 
       if (!response.ok) {
         throw new Error(data.message || "Failed to like post");

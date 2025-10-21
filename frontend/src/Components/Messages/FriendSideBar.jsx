@@ -16,7 +16,7 @@ const FriendsSidebar = ({ onSelectFriend, selectedUser }) => {
           }
         );
         const data = await res.json();
-        console.log("Fetched friends for message sidebar:", data);
+        ("Fetched friends for message sidebar:", data);
         setFriends(data.friends);
       } catch (err) {
         console.error("Error fetching friends:", err);
@@ -26,8 +26,8 @@ const FriendsSidebar = ({ onSelectFriend, selectedUser }) => {
   }, []);
 
   return (
-    <div className="w-72 bg-gray-900 h-full overflow-y-auto">
-      <h2 className="sticky top-0 z-10 text-xl font-bold p-4 border-b border-gray-800 bg-gray-900 text-white">
+    <div className="w-72 bg-[#091530] h-full overflow-y-auto">
+      <h2 className="sticky top-0 z-10 text-xl font-bold p-4 border-b border-gray-800 bg-[#091530] text-white">
         Chats
       </h2>
       <ul>

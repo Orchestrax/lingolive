@@ -69,7 +69,7 @@ export const AppProvider = ({ children }) => {
       });
 
       const data = await response.json();
-      console.log("Fetched posts:", data);
+      ("Fetched posts:", data);
       setPosts(data);
     } catch (err) {
       console.error("Error fetching posts:", err.message);
@@ -89,10 +89,10 @@ export const AppProvider = ({ children }) => {
         }
       );
       const data = await res.json();
-      console.log("Fetched comments:", data);
+      ("Fetched comments:", data);
       setComments(data);
     } catch (err) {
-      console.log(err);
+      (err);
     }
   };
 
@@ -106,10 +106,10 @@ export const AppProvider = ({ children }) => {
         credentials: "include",
       });
       const data = await res.json();
-      console.log("Fetched all users:", data);
+      ("Fetched all users:", data);
       setAllUser(data.data); // assuming your API returns { data: [...] }
     } catch (err) {
-      console.log(err);
+      (err);
     }
   };
 
@@ -123,7 +123,7 @@ export const AppProvider = ({ children }) => {
         credentials: "include",
       });
       const data = await res.json();
-      console.log("Fetched friend requests:", data);
+      ("Fetched friend requests:", data);
       setRequests(data.requests || []);
     } catch (err) {
       console.error("Error fetching friend requests:", err);
@@ -140,7 +140,7 @@ export const AppProvider = ({ children }) => {
         credentials: "include",
       });
       const data = await res.json();
-      console.log("Fetched friend list:", data);
+      ("Fetched friend list:", data);
       // You can set this data to a state if needed
       setFriendList(data.friends || []);
     } catch (err) {
@@ -154,7 +154,7 @@ export const AppProvider = ({ children }) => {
         credentials: "include",
       });
       const data = await res.json();
-      console.log("Fetched notifications: ", data);
+      ("Fetched notifications: ", data);
       setNotifications(data.notifications || []);
       setLoading(false);
     } catch (err) {

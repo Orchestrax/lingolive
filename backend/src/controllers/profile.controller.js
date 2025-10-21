@@ -5,8 +5,8 @@ import cloudinary from "../utils/cloudinary.js";
 
 // 🔹 Update profile
 export const UpdateProfile = asyncHandler(async (req, res) => {
-  console.log("👉 req.user:", req.user);
-  console.log("👉 req.body:", req.body);
+  ("👉 req.user:", req.user);
+  ("👉 req.body:", req.body);
 
   const { 
     fullname, 
@@ -87,7 +87,7 @@ export const UploadCoverPic = asyncHandler(async (req, res) => {
 });
 
 export const GetProfile = async (req, res) => {
-  console.log("👉 GetProfile req.user:", req.user);
+  ("👉 GetProfile req.user:", req.user);
   try {
     const existingUser = await User.findById(req.user)
       .select("-password")

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"
 const YourTotalConnection = () => {
   const { friendList, fetchFriendlist, loading } = useContext(AppContext)
   const navigate = useNavigate();
-  console.log("Friend List in YourTotalConnection:", friendList);
+  ("Friend List in YourTotalConnection:", friendList);
 
   useEffect(()=>{
     fetchFriendlist();

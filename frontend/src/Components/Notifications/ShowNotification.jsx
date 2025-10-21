@@ -80,7 +80,7 @@ const ShowNotification = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-950 to-black text-gray-100 px-4 py-10">
+    <div className="min-h-screen bg-[#050A15] text-gray-100 px-4 py-10">
       <div className="max-w-3xl mx-auto relative">
         {/* Header */}
         <div className="text-center mb-10">
@@ -130,7 +130,7 @@ const ShowNotification = () => {
 
                 {/* Like Notification */}
                 {n.type === "like" && (
-                  <div className="mt-3 flex items-center gap-3 bg-blue-500/5 border border-blue-500/20 rounded-xl p-2.5 relative">
+                  <div className="mt-3 flex items-center gap-3 bg-[#091530] border border-blue-500/20 rounded-xl p-2.5 relative">
                     <ThumbsUp className="w-5 h-5 text-blue-400 absolute top-0 right-0" />
                     <div className="mt-3 flex items-center gap-3 bg-blue-500/5 border border-blue-500/20 rounded-xl p-2.5">
                       
@@ -160,7 +160,7 @@ const ShowNotification = () => {
 
                 {/* Post Notification */}
                 {n.type === "post" && (
-                  <div className="mt-3 flex items-center gap-3 bg-blue-500/5 border border-blue-500/20 rounded-xl p-2.5">
+                  <div className="mt-3 flex items-center gap-3 bg-[#091530] border border-blue-500/20 rounded-xl p-2.5">
                     {n.post?.image && (
                       <img
                         src={n.post.image}
@@ -176,7 +176,7 @@ const ShowNotification = () => {
 
                 {/* Friend Request */}
                 {n.type === "friend_request" && (
-                  <div className="mt-3 flex items-center gap-2 bg-green-500/5 border border-green-500/20 rounded-xl p-2.5">
+                  <div className="mt-3 flex items-center gap-2 bg-[#091530] border border-green-500/20 rounded-xl p-2.5">
                     <UserPlus className="w-5 h-5 text-green-400" />
                     <p className="text-gray-400 text-xs">
                       {n.message || "Sent you a friend request"}
@@ -186,7 +186,7 @@ const ShowNotification = () => {
 
                 {/* Message */}
                 {n.type === "message" && (
-                  <div className="mt-3 flex items-center gap-2 bg-purple-500/5 border border-purple-500/20 rounded-xl p-2.5">
+                  <div className="mt-3 flex items-center gap-2 bg-[#091530] border border-purple-500/20 rounded-xl p-2.5">
                     <MessageCircle className="w-5 h-5 text-purple-400" />
                     <p className="text-gray-400 text-xs">
                       {n.message || "New message received"}
@@ -198,8 +198,8 @@ const ShowNotification = () => {
                 {n.type === "comment" && (
                   <div className="flex flex-col">
 
-                    <div className="mt-3 flex items-center gap-3 bg-blue-500/5 border border-blue-500/20 rounded-xl p-2.5">
-                      
+                    <div className="mt-3 flex items-center gap-3 bg-[#091530] border border-blue-500/20 rounded-xl p-2.5">
+                      <MessageCircle className="w-5 h-5 text-blue-400" />
                       {n.post?.image && (
                         <img
                           src={n.post.image}

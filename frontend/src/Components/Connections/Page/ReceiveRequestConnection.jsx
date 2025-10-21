@@ -23,7 +23,7 @@ const ReceiveRequestConnection = () => {
       });
 
       const data = await res.json();
-      console.log("Friend request accepted:", data);
+      ("Friend request accepted:", data);
 
       // Remove from UI
       setRequests((prev) => prev.filter((r) => r._id !== requestId));
@@ -41,7 +41,7 @@ const ReceiveRequestConnection = () => {
         body: JSON.stringify({ requestId }),
       });
       const data = await res.json();
-      console.log("Friend request rejected:", data);
+      ("Friend request rejected:", data);
 
       // Remove from UI
       setRequests((prev) => prev.filter((r) => r._id !== requestId));

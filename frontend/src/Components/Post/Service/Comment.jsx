@@ -48,7 +48,7 @@ const Comment = ({ id }) => {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Failed to delete comment");
-      console.log(data);
+      (data);
 
       // Update posts state with returned populated updatedComments
       if (data.updatedComments) {

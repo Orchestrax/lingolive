@@ -63,7 +63,7 @@ const Home = () => {
 
             {/* Create Post */}
             <div
-              className="bg-gray-800 rounded-lg p-6 mb-6"
+              className="bg-[#091530] rounded-lg p-6 mb-6"
               onClick={() => navigate("/create-post")}
             >
               <div className="flex items-center space-x-4">
@@ -88,7 +88,7 @@ const Home = () => {
             </div>
 
             {/* Recent Activity */}
-            <div className="bg-gray-800 rounded-lg p-6">
+            <div className="bg-[#091530] rounded-lg p-6">
               <h3 className="text-lg font-semibold mb-4">Recent Activity</h3>
               <div className="space-y-4">
                 <div className="flex items-center space-x-3 p-3 bg-gray-700 rounded-lg">

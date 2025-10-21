@@ -30,7 +30,7 @@ const Signup = () => {
         body: JSON.stringify(formdata),
       });
       const data = await response.json();
-      console.log(data);
+      (data);
 
       setUser(data.user); // Update user context
 
