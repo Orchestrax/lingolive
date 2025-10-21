@@ -3,7 +3,7 @@ import { createContext, useEffect, useState } from "react";
 const AppContext = createContext();
 
 // Utility function to get API URL
-const getApiUrl = "https://lingolive.onrender.com";
+const getApiUrl = () => "https://lingolive.onrender.com";
 
 export const AppProvider = ({ children }) => {
   const [user, setUser] = useState();
@@ -42,6 +42,7 @@ export const AppProvider = ({ children }) => {
       const data = await response.json();
 
       if (response.ok) {
+        setUser(data.user);
         localStorage.setItem("auth", "true");
         localStorage.setItem("user", JSON.stringify(data.user)); // ✅ store user persistently
       }

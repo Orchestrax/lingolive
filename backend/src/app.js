@@ -19,9 +19,7 @@ const _dirname = path.resolve();
 const app = express();
 
 app.use(cors({
-    origin: process.env.NODE_ENV === 'production' 
-        ? ["https://lingolive.onrender.com"] 
-        : ["http://localhost:5173"],
+    origin: 'https://lingolive.onrender.com',
     credentials: true,
 }));
 
