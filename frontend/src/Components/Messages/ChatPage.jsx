@@ -3,7 +3,6 @@ import { useSocket } from "../../Context/SocketContext";
 import { Send, FolderUpIcon } from "lucide-react";
 import "remixicon/fonts/remixicon.css";
 import { useNavigate } from "react-router-dom";
-import CallButton from "../Calls/CallButton";
 
 const ChatPage = ({ selectedUser, onOpenSidebar }) => {
   const navigate = useNavigate();

@@ -5,17 +5,18 @@ import AppContext from "./UseContext"; // import your main context
 
 // Utility function to get Socket URL
 const getSocketUrl = () => {
-  return import.meta.env.VITE_SOCKET_URL || 
-    (process.env.NODE_ENV === 'development' 
-      ? "http://localhost:5000" 
-      : "https://lingolive.onrender.com");
+  return (
+    import.meta.env.VITE_SOCKET_URL ||
+    (process.env.NODE_ENV === "development"
+      ? "http://localhost:5000"
+      : "https://lingolive.onrender.com")
+  );
 };
 
 const SocketContext = createContext();
 
 export const SocketProvider = ({ children }) => {
-  const { user, posts, setPosts, requests, setRequests } =
-    useContext(AppContext);
+  const { user, posts, setPosts, requests, setRequests } = useContext(AppContext);
   const [socket, setSocket] = useState(null);
   const [notifications, setNotifications] = useState([]);
   const [messages, setMessages] = useState([]);
@@ -24,66 +25,26 @@ export const SocketProvider = ({ children }) => {
   useEffect(() => {
     if (!user?._id) return;
 
-<<<<<<< HEAD
-    // Use local backend for development, production for deployment
     const socketUrl = getSocketUrl();
-    
     console.log("🔌 Connecting to socket:", socketUrl);
-    
+
     const newSocket = io(socketUrl, {
-=======
-    const newSocket = io("https://lingolive.onrender.com", {
->>>>>>> 6405882 (last phase)
       query: { userId: user._id },
       withCredentials: true,
-      transports: ["websocket", "polling"], // Add polling as fallback
+      transports: ["websocket", "polling"], // fallback for reliability
       timeout: 10000,
       forceNew: true,
     });
 
     setSocket(newSocket);
 
-<<<<<<< HEAD
-    // Add connection debugging
-    newSocket.on("connect", () => {
-      console.log("🔌 Socket connected:", newSocket.id);
-      // Re-emit user data after connection
-      newSocket.emit("addUser", user._id);
-      newSocket.emit("joinRoom", user._id);
-    });
-
-    newSocket.on("disconnect", (reason) => {
-      console.log("🔌 Socket disconnected:", reason);
-      if (reason === 'io server disconnect') {
-        // Server disconnected the client, try to reconnect
-        newSocket.connect();
-      }
-    });
-
-    newSocket.on("connect_error", (error) => {
-      console.error("🔌 Socket connection error:", error);
-    });
-
-    newSocket.on("reconnect", (attemptNumber) => {
-      console.log("🔌 Socket reconnected after", attemptNumber, "attempts");
-=======
-    // Join user room
+    newSocket.emit("addUser", user._id);
     newSocket.emit("joinRoom", user._id);
-
-    if (user._id) {
->>>>>>> 6405882 (last phase)
-      newSocket.emit("addUser", user._id);
-      newSocket.emit("joinRoom", user._id);
-    });
-
-    newSocket.on("reconnect_error", (error) => {
-      console.error("🔌 Socket reconnection error:", error);
-    });
 
     // Post events
     newSocket.on("newPost", (newPost) => {
       console.log("🆕 New post received via socket:", newPost);
-      setPosts((prevPosts) => [newPost, ...prevPosts]);
+      setPosts((prev) => [newPost, ...prev]);
     });
 
     newSocket.on("updatePost", (updatedPost) => {
@@ -100,8 +61,8 @@ export const SocketProvider = ({ children }) => {
 
     // Friend request events
     newSocket.on("friendRequest", ({ newRequest }) => {
-      console.log("🆕 New friend request received via socket:", newRequest);
-      setRequests((prevRequests) => [newRequest, ...prevRequests]);
+      console.log("🆕 New friend request received:", newRequest);
+      setRequests((prev) => [newRequest, ...prev]);
     });
 
     // Notification events
@@ -120,15 +81,16 @@ export const SocketProvider = ({ children }) => {
       console.log("🔌 Cleaning up socket connection");
       newSocket.disconnect();
     };
-  }, [user?._id]); // Only depend on user._id to prevent unnecessary reconnections
+  }, [user?._id]); // Only reconnect when user changes
 
-  // For real time messages
+  // Real-time message handling
   useEffect(() => {
     if (!socket) return;
 
     socket.on("newMessage", (message) => {
       setMessages((prev) => [...prev, message]);
     });
+
     socket.on("deleteMessage", (messageId) => {
       setMessages((prev) => prev.filter((msg) => msg._id !== messageId));
     });
