@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 // 🔹 Generate JWT Token
 const generateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+    return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '10d' });
 };
 // 🔹 Signup
 export const signup = asyncHandler(async (req, res) => {

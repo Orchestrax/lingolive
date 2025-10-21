@@ -3,14 +3,7 @@ import { createContext, useEffect, useState } from "react";
 const AppContext = createContext();
 
 // Utility function to get API URL
-const getApiUrl = () => {
-  return (
-    import.meta.env.VITE_API_URL ||
-    (process.env.NODE_ENV === "development"
-      ? "http://localhost:5000"
-      : "https://lingolive.onrender.com")
-  );
-};
+const getApiUrl = "https://lingolive.onrender.com";
 
 export const AppProvider = ({ children }) => {
   const [user, setUser] = useState();
@@ -66,7 +59,7 @@ export const AppProvider = ({ children }) => {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch(`${getApiUrl()}/api/posts`, {
+      const response = await fetch(`${getApiUrl}/api/posts`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
