@@ -108,7 +108,7 @@ const ShowPost = () => {
           {posts.map((post) => (
             <div
               key={post._id}
-              className="bg-gray-950 rounded-2xl shadow-lg p-3 space-y-3"
+              className="bg-gray-950 rounded-2xl shadow-lg p-3 space-y-3 overflow-hidden"
             >
               {/* User Info */}
               <div className="flex items-center space-x-3">

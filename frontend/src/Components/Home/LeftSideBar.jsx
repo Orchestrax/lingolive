@@ -6,11 +6,11 @@ const LeftSideBar = () => {
   const { user } = useContext(AppContext);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3 sticky top-2">
       {/* User Profile Card */}
       <div className="bg-gray-800/40 backdrop-blur-xl rounded-2xl p-6 border border-gray-700/50 shadow-xl">
         <div className="text-center">
-          <div className="relative inline-block mb-4">
+          <div className="relative inline-block mb-2">
             <div className="w-24 h-24 rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 p-1 shadow-2xl">
               <div className="w-full h-full rounded-2xl bg-gray-800 overflow-hidden">
                 {user.profilePic ? (
@@ -29,11 +29,11 @@ const LeftSideBar = () => {
           <h2 className="text-xl font-bold mb-1 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
             {user.fullname || user.username || "Anonymous User"}
           </h2>
-          <p className="text-gray-400 text-sm mb-4">
+          <p className="text-gray-400 text-sm mb-2">
             @{user.username || "username"}
           </p>
           {user.bio && (
-            <p className="text-gray-300 text-sm mb-6 leading-relaxed">{user.bio}</p>
+            <p className="text-gray-300 text-sm mb-2 leading-relaxed">{user.bio}</p>
           )}
           <a
             href="/profile"
@@ -47,7 +47,7 @@ const LeftSideBar = () => {
 
       {/* Quick Stats */}
       <div className="bg-gray-800/40 backdrop-blur-xl rounded-2xl p-6 border border-gray-700/50 shadow-xl">
-        <div className="flex items-center gap-3 mb-6">
+        <div className="flex items-center gap-3 mb-3">
           <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
             <BarChart3 className="w-5 h-5 text-white" />
           </div>
@@ -55,7 +55,7 @@ const LeftSideBar = () => {
             Quick Stats
           </h3>
         </div>
-        <div className="space-y-4">
+        <div className="space-y-2">
           {[
             { label: "Posts", value: user.posts?.length || 0, color: "from-blue-500 to-cyan-500" },
             { label: "Friends", value: user.friends?.length || 0, color: "from-green-500 to-emerald-500" },

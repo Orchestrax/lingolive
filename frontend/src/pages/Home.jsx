@@ -87,22 +87,13 @@ const Home = () => {
             </div>
 
             {/* Create Post */}
+            
+            {/* Create Post */}
             <div
-              className="bg-gray-800/40 backdrop-blur-xl rounded-2xl p-6 mb-8 border border-gray-700/50 shadow-xl cursor-pointer transform hover:scale-[1.02] transition-all duration-300"
+              className="bg-gray-800/40 backdrop-blur-xl rounded-2xl lg:p-6 p-2 mb-8 border border-gray-700/50 shadow-xl cursor-pointer transform hover:scale-[1.02] transition-all duration-300"
               onClick={() => navigate("/create-post")}
             >
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center overflow-hidden shadow-lg">
-                  {user.profilePic ? (
-                    <img
-                      src={user.profilePic || "/defaultProfile.png"}
-                      alt="Profile"
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <User className="w-6 h-6 text-white" />
-                  )}
-                </div>
+              <div className="flex items-center space-x-2">
                 <button className="flex-1 bg-gray-700/50 hover:bg-gray-600/50 rounded-2xl px-6 py-4 text-left text-gray-300 border border-gray-600/50 transition-all duration-300">
                   What's on your mind?
                 </button>
