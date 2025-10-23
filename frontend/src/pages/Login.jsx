@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import AppContext from '../Context/UseContext';
-import { Eye } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, LogIn } from 'lucide-react';
 
 const Login = () => {
   const [formdata, setFormdata] = useState({
@@ -10,7 +10,7 @@ const Login = () => {
   });
   const [showpassword, setshowpassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const {  setUser } = useContext(AppContext);
+  const { setUser } = useContext(AppContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,75 +26,95 @@ const Login = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include', // ✅ important if using cookies
+        credentials: 'include',
         body: JSON.stringify(formdata),
       });
 
       const data = await response.json();
-      ('Server response:', data.user);
-      setUser(data.user); // Update user context
+      console.log('Server response:', data.user);
+      setUser(data.user);
 
       if (response.ok) {
         localStorage.setItem("auth","true")
-        // Login success (200)
-        toast.success(`Login successful! ${data.message}`, { autoClose: 1000 , onClose: () => { window.location.href = '/'; }});
+        toast.success(`🎊 Welcome back! ${data.message}`, { 
+          autoClose: 1500, 
+          onClose: () => { window.location.href = '/'; }
+        });
       } else {
-        // Login failed (400, 401, etc.)
-        toast.error(`Login failed! ${data.message}`, { autoClose: 1000 });
+        toast.error(`Login failed! ${data.message}`, { autoClose: 2000 });
       }
     } catch (error) {
       console.error(error);
-      toast.error(`Login failed! ${error.message}`, { autoClose: 1000 });
+      toast.error(`Login failed! ${error.message}`, { autoClose: 2000 });
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#050A15] flex items-center justify-center p-4">
-      <div className="max-w-md w-full">
-        <div className="bg-[#050A15] rounded-2xl shadow-2xl p-8 card-hover">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-950 to-black flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Animated Background */}
+      <div className="absolute inset-0">
+        <div className="absolute top-32 right-16 w-4 h-4 bg-purple-400 rounded-full animate-bounce delay-300"></div>
+        <div className="absolute bottom-40 left-20 w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
+      </div>
+
+      <div className="max-w-md w-full relative z-10">
+        <div className="bg-gray-800/40 backdrop-blur-xl rounded-3xl shadow-2xl border border-gray-700/50 p-8 transform hover:scale-[1.02] transition-all duration-300">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-white mb-2">Welcome Back</h1>
-            <p className="text-gray-400">Sign in to your account</p>
+            <div className="flex justify-center mb-4">
+              <div className="relative">
+                <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-blue-600 rounded-2xl flex items-center justify-center">
+                  <LogIn className="w-8 h-8 text-white" />
+                </div>
+              </div>
+            </div>
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent mb-2">
+              Welcome Back
+            </h1>
+            <p className="text-gray-400">Sign in to continue your journey</p>
           </div>
           
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+            <div className="group">
+              <label className="block text-sm font-medium text-gray-300 mb-3">
                 Email Address
               </label>
-              <input
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                value={formdata.email}
-                onChange={handleChange}
-                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 input-focus"
-                required
-              />
+              <div className="relative">
+                <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 group-focus-within:text-green-400 transition-colors" />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  value={formdata.email}
+                  onChange={handleChange}
+                  className="w-full pl-12 pr-4 py-4 bg-gray-700/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-transparent transition-all duration-300"
+                  required
+                />
+              </div>
             </div>
             
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+            <div className="group">
+              <label className="block text-sm font-medium text-gray-300 mb-3">
                 Password
               </label>
               <div className="relative">
+                <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 group-focus-within:text-green-400 transition-colors" />
                 <input
                   type={showpassword ? "text" : "password"}
                   name="password"
-                  placeholder="Create a password"
+                  placeholder="Enter your password"
                   value={formdata.password}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 pr-12 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 input-focus"
+                  className="w-full pl-12 pr-12 py-4 bg-gray-700/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-transparent transition-all duration-300"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setshowpassword(!showpassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
                 >
-                  <Eye className="w-5 h-5" />
+                  {showpassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
               </div>
             </div>
@@ -102,23 +122,34 @@ const Login = () => {
             <button 
               type="submit" 
               disabled={loading}
-              className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-semibold py-3 px-4 rounded-lg btn-hover transition-colors"
+              className="w-full bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700 disabled:opacity-50 text-white font-semibold py-4 px-4 rounded-xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl"
             >
-              {loading ? 'Signing In...' : 'Sign In'}
+              {loading ? (
+                <div className="flex items-center justify-center">
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>
+                  Signing In...
+                </div>
+              ) : (
+                "Sign In"
+              )}
             </button>
           </form>
           
-          <div className="mt-6 text-center">
+          <div className="mt-8 text-center">
             <p className="text-gray-400">
               Don't have an account?{' '}
-              <a href="/signup" className="text-blue-400 hover:text-blue-300 font-medium">
+              <a href="/signup" className="text-green-400 hover:text-green-300 font-medium transition-colors hover:underline">
                 Sign up here
               </a>
             </p>
           </div>
         </div>
       </div>
-      <ToastContainer />
+      <ToastContainer 
+        position="top-right"
+        theme="dark"
+        toastClassName="bg-gray-800 text-white"
+      />
     </div>
   );
 };

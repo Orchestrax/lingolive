@@ -60,7 +60,7 @@ const Home = () => {
         <div className="absolute bottom-10 right-10 w-96 h-96 bg-purple-600/5 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
+      <div className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
           {/* Left Sidebar */}
           <div className="lg:col-span-1 lg:block hidden space-y-6">

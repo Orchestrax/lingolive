@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
-import { Eye } from "lucide-react";
+import { Eye, EyeOff, User, Mail, Lock, Sparkles } from "lucide-react";
 import AppContext from "../Context/UseContext";
 
 const Signup = () => {
@@ -30,114 +30,152 @@ const Signup = () => {
         body: JSON.stringify(formdata),
       });
       const data = await response.json();
-      (data);
+      console.log(data);
 
-      setUser(data.user); // Update user context
+      setUser(data.user);
 
       if (response.ok) {
-        // Signup success (201)
-        toast.success(`Signup successful! ${data.message}`, {
-          autoClose: 1000,
+        toast.success(`🎉 Welcome! ${data.message}`, {
+          autoClose: 1500,
           onClose: () => {
             window.location.href = "/";
           },
         });
       } else {
-        // Signup failed (400, 401, etc.)
-        toast.error(`Signup failed! ${data.message}`, { autoClose: 1000 });
+        toast.error(`Signup failed! ${data.message}`, { autoClose: 2000 });
       }
     } catch (error) {
       console.error(error);
-      toast.error(`Signup failed! ${error.message}`, { autoClose: 1000 });
+      toast.error(`Signup failed! ${error.message}`, { autoClose: 2000 });
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#050A15] flex items-center justify-center p-4">
-      <div className="max-w-md w-full">
-        <div className="bg-[#050A15] rounded-2xl shadow-2xl p-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-950 to-black flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Animated Background */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 left-10 w-4 h-4 bg-blue-400 rounded-full animate-bounce"></div>
+        <div className="absolute top-40 right-20 w-3 h-3 bg-purple-400 rounded-full animate-pulse"></div>
+        <div className="absolute bottom-32 left-1/4 w-2 h-2 bg-cyan-400 rounded-full animate-ping"></div>
+      </div>
+
+      <div className="max-w-md w-full relative z-10">
+        <div className="bg-gray-800/40 backdrop-blur-xl rounded-3xl shadow-2xl border border-gray-700/50 p-8 transform hover:scale-[1.02] transition-all duration-300">
+          {/* Header */}
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-white mb-2">Create Account</h1>
-            <p className="text-gray-400">Join us today and start your journey</p>
+            <div className="flex justify-center mb-4">
+              <div className="relative">
+                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center">
+                  <Sparkles className="w-8 h-8 text-white" />
+                </div>
+              </div>
+            </div>
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mb-2">
+              Join Our Community
+            </h1>
+            <p className="text-gray-400">Start your amazing journey with us</p>
           </div>
           
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+            {/* Email Field */}
+            <div className="group">
+              <label className="block text-sm font-medium text-gray-300 mb-3">
                 Email Address
               </label>
-              <input
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                value={formdata.email}
-                onChange={handleChange}
-                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 input-focus"
-                required
-              />
+              <div className="relative">
+                <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 group-focus-within:text-blue-400 transition-colors" />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  value={formdata.email}
+                  onChange={handleChange}
+                  className="w-full pl-12 pr-4 py-4 bg-gray-700/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all duration-300"
+                  required
+                />
+              </div>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
-                Usernamme
+            {/* Username Field */}
+            <div className="group">
+              <label className="block text-sm font-medium text-gray-300 mb-3">
+                Username
               </label>
-              <input
-                type="text"
-                name="username"
-                placeholder="Enter your username"
-                value={formdata.username}
-                onChange={handleChange}
-                className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 input-focus"
-                required
-              />
+              <div className="relative">
+                <User className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 group-focus-within:text-blue-400 transition-colors" />
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="Choose a username"
+                  value={formdata.username}
+                  onChange={handleChange}
+                  className="w-full pl-12 pr-4 py-4 bg-gray-700/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all duration-300"
+                  required
+                />
+              </div>
             </div>
             
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+            {/* Password Field */}
+            <div className="group">
+              <label className="block text-sm font-medium text-gray-300 mb-3">
                 Password
               </label>
               <div className="relative">
+                <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 group-focus-within:text-blue-400 transition-colors" />
                 <input
                   type={showpassword ? "text" : "password"}
                   name="password"
-                  placeholder="Create a password"
+                  placeholder="Create a secure password"
                   value={formdata.password}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 pr-12 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 input-focus"
+                  className="w-full pl-12 pr-12 py-4 bg-gray-700/50 border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all duration-300"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setshowpassword(!showpassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
                 >
-                  <Eye className="w-5 h-5" />
+                  {showpassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
               </div>
             </div>
             
+            {/* Submit Button */}
             <button 
               type="submit" 
               disabled={loading}
-              className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-semibold py-3 px-4 rounded-lg btn-hover transition-colors"
+              className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 disabled:opacity-50 text-white font-semibold py-4 px-4 rounded-xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl"
             >
-              {loading ? "Creating Account..." : "Create Account"}
+              {loading ? (
+                <div className="flex items-center justify-center">
+                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>
+                  Creating Your Account...
+                </div>
+              ) : (
+                "Create Account"
+              )}
             </button>
           </form>
           
-          <div className="mt-6 text-center">
+          {/* Footer */}
+          <div className="mt-8 text-center">
             <p className="text-gray-400">
               Already have an account?{' '}
-              <a href="/login" className="text-blue-400 hover:text-blue-300 font-medium">
+              <a href="/login" className="text-blue-400 hover:text-blue-300 font-medium transition-colors hover:underline">
                 Sign in here
               </a>
             </p>
           </div>
         </div>
       </div>
-      <ToastContainer />
+      <ToastContainer 
+        position="top-right"
+        theme="dark"
+        toastClassName="bg-gray-800 text-white"
+      />
     </div>
   );
 };
