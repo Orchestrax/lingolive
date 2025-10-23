@@ -29,12 +29,15 @@ const ShowNotification = () => {
 
   const handleNotificationClick = async (n) => {
     try {
-      const res = await fetch("https://lingolive.onrender.com/api/notifications/read", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ notificationId: n._id }),
-        credentials: "include",
-      });
+      const res = await fetch(
+        "https://lingolive.onrender.com/api/notifications/read",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ notificationId: n._id }),
+          credentials: "include",
+        }
+      );
       if (res.ok) {
         if (n.type === "friend_request" && n.fromUser) {
           navigate(`/connections`);
@@ -133,7 +136,6 @@ const ShowNotification = () => {
                   <div className="mt-3 flex items-center gap-3 bg-[#091530] border border-blue-500/20 rounded-xl p-2.5 relative">
                     <ThumbsUp className="w-5 h-5 text-blue-400 absolute top-0 right-0" />
                     <div className="mt-3 flex items-center gap-3 bg-blue-500/5 border border-blue-500/20 rounded-xl p-2.5">
-                      
                       {n.post?.image && (
                         <img
                           src={n.post.image}
@@ -141,16 +143,14 @@ const ShowNotification = () => {
                           alt="Post"
                         />
                       )}
-                      {
-                        n.post?.video && (
-                          <video
-                            src={n.post.video}
-                            className= "w-1/2 h-1/2 object-cover rounded-lg border border-white/10"
-                            alt="Post"
-                            controls
-                          />
-                        )
-                      }
+                      {n.post?.video && (
+                        <video
+                          src={n.post.video}
+                          className="w-1/2 h-1/2 object-cover rounded-lg border border-white/10"
+                          alt="Post"
+                          controls
+                        />
+                      )}
                       <p className="text-gray-400 text-xs line-clamp-2">
                         {n.post?.content || "Post liked"}
                       </p>
@@ -197,7 +197,6 @@ const ShowNotification = () => {
                 {/* Comment Notification */}
                 {n.type === "comment" && (
                   <div className="flex flex-col">
-
                     <div className="mt-3 flex items-center gap-3 bg-[#091530] border border-blue-500/20 rounded-xl p-2.5">
                       <MessageCircle className="w-5 h-5 text-blue-400" />
                       {n.post?.image && (
@@ -207,16 +206,14 @@ const ShowNotification = () => {
                           alt="Post"
                         />
                       )}
-                      {
-                        n.post?.video && (
-                          <video
-                            src={n.post.video}
-                            className= "w-1/2 h-1/2 object-cover rounded-lg border border-white/10"
-                            alt="Post"
-                            controls
-                          />
-                        )
-                      }
+                      {n.post?.video && (
+                        <video
+                          src={n.post.video}
+                          className="w-1/2 h-1/2 object-cover rounded-lg border border-white/10"
+                          alt="Post"
+                          controls
+                        />
+                      )}
                       <p className="text-gray-400 text-xs line-clamp-2">
                         {n.post?.content || "Post liked"}
                       </p>
@@ -225,10 +222,12 @@ const ShowNotification = () => {
                     <div className="mt-3 flex items-center gap-2 bg-yellow-500/5 border border-yellow-500/20 rounded-xl p-2.5">
                       <MessageCircle className="w-5 h-5 text-yellow-400" />
                       <p className="text-gray-400 text-xs">
-                        {n.post?.comments?.[n.post?.comments?.length - 1].text || "New comment received"}
+                        {Array.isArray(n.post?.comments) &&
+                        n.post.comments.length > 0
+                          ? n.post.comments[n.post.comments.length - 1]?.text
+                          : "New comment received"}
                       </p>
                     </div>
-
                   </div>
                 )}
               </div>
