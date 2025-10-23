@@ -38,7 +38,7 @@ const Signup = () => {
         toast.success(`🎉 Welcome! ${data.message}`, {
           autoClose: 1500,
           onClose: () => {
-            window.location.href = "/";
+            window.location.href = "/profile";
           },
         });
       } else {
