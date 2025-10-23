@@ -61,11 +61,10 @@ const Home = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
           {/* Left Sidebar */}
           <div className="lg:col-span-1 lg:block hidden space-y-6">
-            <LeftSideBar />
-            <RightSideBar />
+             <LeftSideBar />
           </div>
 
           {/* Main Content */}
@@ -156,6 +155,11 @@ const Home = () => {
                 )}
               </div>
             </div>
+          </div>
+          
+          {/* Right Sidebar */}
+          <div className="lg:col-span-1 lg:block hidden space-y-6">
+            <RightSideBar />
           </div>
         </div>
       </div>
