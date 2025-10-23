@@ -51,7 +51,7 @@ const Navbar = () => {
             }}
           >
             <text x="20" y="65" fontSize="55" fill="#D5B03A" fontWeight="bold">
-              World
+              Lingo
             </text>
             <text x="175" y="65" fontSize="55" fill="#D5B01A" fontWeight="bold">
               live

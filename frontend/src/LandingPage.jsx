@@ -85,11 +85,11 @@ export default function LandingPage() {
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           <div className="bg-blue-900 rounded-xl p-6 shadow text-blue-200">
             <p className="italic">“The chat and calls are unbelievably fast and stable—perfect for connecting with my friends globally!”</p>
-            <span className="block mt-4 font-semibold">— Aarti, Student</span>
+            <span className="block mt-4 font-semibold">— Amit, Student</span>
           </div>
           <div className="bg-purple-900 rounded-xl p-6 shadow text-purple-200">
             <p className="italic">“I love the instant notifications and easy profile management. LingoLive makes social learning simple.”</p>
-            <span className="block mt-4 font-semibold">— Rahul, Developer</span>
+            <span className="block mt-4 font-semibold">— Sarthak, Developer</span>
           </div>
         </div>
       </section>
