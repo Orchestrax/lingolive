@@ -25,7 +25,7 @@ const Navbar = () => {
       });
       localStorage.setItem("auth", "false");
       setUser(null);
-      window.location.href = "/login";
+      window.location.href = "/";
     } catch (error) {
       console.error("Logout error:", error);
     }
@@ -125,20 +125,7 @@ const Navbar = () => {
                 </button>
               </div>
             ) : (
-              <div className="flex items-center space-x-4">
-                <button
-                  className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-2 rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-                  onClick={() => (window.location.href = "/login")}
-                >
-                  Login
-                </button>
-                <button
-                  className="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-2 rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-                  onClick={() => (window.location.href = "/signup")}
-                >
-                  Signup
-                </button>
-              </div>
+              null
             )}
           </div>
           {/* Mobile Menu Button */}
@@ -221,26 +208,7 @@ const Navbar = () => {
                 </button>
               </div>
             ) : (
-              <div className="flex flex-col space-y-3">
-                <button
-                  className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-3 rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 text-center"
-                  onClick={() => {
-                    window.location.href = "/login";
-                    setIsMobileMenuOpen(false);
-                  }}
-                >
-                  Login
-                </button>
-                <button
-                  className="bg-gradient-to-r from-green-500 to-green-600 text-white p-3 rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-200 text-center"
-                  onClick={() => {
-                    window.location.href = "/signup";
-                    setIsMobileMenuOpen(false);
-                  }}
-                >
-                  Signup
-                </button>
-              </div>
+              null
             )}
           </div>
         )}

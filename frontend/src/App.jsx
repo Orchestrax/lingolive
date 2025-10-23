@@ -5,6 +5,7 @@ import AppContext from "./Context/UseContext";
 import Navbar from "./Components/Common/Navbar";
 import NotificationPopupManager from "./Context/NotificationProvider";
 import Loading from "./Loading";
+import LandingPage from "./LandingPage";
 
 const Home = lazy(() => import("./pages/Home"));
 const Profile = lazy(() => import("./pages/Profile"));
@@ -27,16 +28,16 @@ const App = () => {
         <Navbar />
         <Suspense fallback={<Loading />}>
           <Routes>
-            <Route path="/" element={auth ? <Home /> : <Login />} />
-            <Route path="/profile" element={auth ? <Profile /> : <Login />} />
+            <Route path="/" element={auth ? <Home /> : <LandingPage />} />
+            <Route path="/profile" element={auth ? <Profile /> : <LandingPage />} />
             <Route path="/signup" element={auth ? <Home /> : <Signup />} />
             <Route path="/login" element={auth ? <Home /> : <Login />} />
-            <Route path="/create-post" element={auth ? <CreatePost /> : <Login />} />
-            <Route path="/posts" element={auth ? <ShowPost /> : <Login />} />
-            <Route path="/connections" element={auth ? <Connection /> : <Login />} />
-            <Route path="/profile/:id" element={auth ? <User_Profile /> : <Login />} />
-            <Route path="/notifications" element={auth ? <Notification /> : <Login />} />
-            <Route path="/message" element={auth ? <Message /> : <Login />} />
+            <Route path="/create-post" element={auth ? <CreatePost /> : <LandingPage />} />
+            <Route path="/posts" element={auth ? <ShowPost /> : <LandingPage />} />
+            <Route path="/connections" element={auth ? <Connection /> : <LandingPage />} />
+            <Route path="/profile/:id" element={auth ? <User_Profile /> : <LandingPage />} />
+            <Route path="/notifications" element={auth ? <Notification /> : <LandingPage />} />
+            <Route path="/message" element={auth ? <Message /> : <LandingPage />} />
           </Routes>
         </Suspense>
         <NotificationPopupManager />

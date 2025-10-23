@@ -249,13 +249,14 @@ const ChatPage = ({ selectedUser, onOpenSidebar }) => {
                     </a>
                   )}
                   {m.text && <p className="text-sm">{m.text}</p>}
-                </div>
-                <span className="text-[10px] text-gray-400 block mt-1 text-right">
+                <span className={`text-[10px] block mt-2 text-right ${isOwn ? "text-blue-100" : "text-gray-400"
+                  }`}>
                   {new Date(m.createdAt).toLocaleTimeString([], {
                     hour: "2-digit",
                     minute: "2-digit",
                   })}
                 </span>
+                  </div>
               </div>
             </div>
           );
