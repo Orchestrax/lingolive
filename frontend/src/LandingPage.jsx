@@ -111,6 +111,7 @@ export default function LandingPage() {
       <footer className="mt-12 pb-8 text-center text-blue-500 text-sm opacity-75">
         &copy; {new Date().getFullYear()} LingoLive by Chandermani Mishra • All Rights Reserved
       </footer>
+      
     </div>
   );
 }
