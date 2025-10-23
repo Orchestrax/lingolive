@@ -63,7 +63,7 @@ const ShowAllUser = () => {
         </>
       )}
 
-      <h1 className="text-white text-2xl font-semibold ml-5">
+      <h1 className="text-white text-2xl font-semibold ml-4 mt-4">
         Suggestion For You
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">

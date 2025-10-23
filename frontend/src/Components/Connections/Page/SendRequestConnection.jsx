@@ -16,7 +16,7 @@
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
         <h1 className="col-span-full text-2xl font-bold text-white">
-          Sent Connection Requests
+          Followers and Followings
         </h1>
         {sendRequest.map((u) => (
           <div

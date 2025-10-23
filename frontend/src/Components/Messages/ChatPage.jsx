@@ -143,7 +143,12 @@ const ChatPage = ({ selectedUser, onOpenSidebar }) => {
           className="w-10 h-10 rounded-full object-cover"
         />
         <div className="flex-1">
-          <h2 className="text-white font-semibold text-lg" onClick={()=>{navigate(`/profile/${selectedUser._id}`)}}>
+          <h2
+            className="text-white font-semibold text-lg"
+            onClick={() => {
+              navigate(`/profile/${selectedUser._id}`);
+            }}
+          >
             @{selectedUser.username}
           </h2>
           <p className="text-gray-400 text-sm">
@@ -194,7 +199,7 @@ const ChatPage = ({ selectedUser, onOpenSidebar }) => {
                         }}
                         className="text-gray-300 hover:text-white transition"
                       >
-                        <i className="ri-more-2-line text-lg"></i>
+                        <i className="ri-more-2-line text-xs"></i>
                       </button>
 
                       {/* Dropdown menu */}
@@ -222,14 +227,14 @@ const ChatPage = ({ selectedUser, onOpenSidebar }) => {
                     <img
                       src={m.image}
                       alt="sent"
-                      className="rounded-lg mt-2 max-w-[200px]"
+                      className="rounded-lg mt-2 max-w-[200px] h-[150px] object-cover"
                     />
                   )}
                   {m.video && (
                     <video
                       src={m.video}
                       controls
-                      className="rounded-lg mt-2 max-w-[250px]"
+                      className="rounded-lg mt-2 max-w-[250px] h-[150px] object-cover"
                     />
                   )}
                   {m.audio && <audio src={m.audio} controls className="mt-2" />}
@@ -244,14 +249,13 @@ const ChatPage = ({ selectedUser, onOpenSidebar }) => {
                     </a>
                   )}
                   {m.text && <p className="text-sm">{m.text}</p>}
-
-                  <span className="text-[10px] text-gray-400 block mt-1 text-right">
-                    {new Date(m.createdAt).toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </span>
                 </div>
+                <span className="text-[10px] text-gray-400 block mt-1 text-right">
+                  {new Date(m.createdAt).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </span>
               </div>
             </div>
           );
@@ -260,45 +264,45 @@ const ChatPage = ({ selectedUser, onOpenSidebar }) => {
         <div ref={chatEndRef}></div>
       </div>
 
-        {/* Media preview before sending */}
-        {(media.image || media.video || media.audio || media.file) && (
-          <div className="p-2 flex items-center gap-3 border-t border-gray-800 bg-gray-900">
-            {media.image && (
-              <img
-                src={URL.createObjectURL(media.image)}
-                alt="preview"
-                className="w-20 h-20 object-cover rounded-lg border border-gray-700"
-              />
-            )}
-            {media.video && (
-              <video
-                src={URL.createObjectURL(media.video)}
-                controls
-                className="w-24 h-20 rounded-lg border border-gray-700"
-              />
-            )}
-            {media.audio && (
-              <audio
-                src={URL.createObjectURL(media.audio)}
-                controls
-                className="w-48"
-              />
-            )}
-            {media.file && (
-              <p className="text-sm text-gray-300 truncate max-w-[150px]">
-                📎 {media.file.name}
-              </p>
-            )}
-            <button
-              onClick={() =>
-                setMedia({ image: null, video: null, audio: null, file: null })
-              }
-              className="text-red-400 text-xs underline"
-            >
-              Remove
-            </button>
-          </div>
-        )}
+      {/* Media preview before sending */}
+      {(media.image || media.video || media.audio || media.file) && (
+        <div className="p-2 flex items-center gap-3 border-t border-gray-800 bg-gray-900">
+          {media.image && (
+            <img
+              src={URL.createObjectURL(media.image)}
+              alt="preview"
+              className="w-20 h-20 object-cover rounded-lg border border-gray-700"
+            />
+          )}
+          {media.video && (
+            <video
+              src={URL.createObjectURL(media.video)}
+              controls
+              className="w-24 h-20 rounded-lg border border-gray-700"
+            />
+          )}
+          {media.audio && (
+            <audio
+              src={URL.createObjectURL(media.audio)}
+              controls
+              className="w-48"
+            />
+          )}
+          {media.file && (
+            <p className="text-sm text-gray-300 truncate max-w-[150px]">
+              📎 {media.file.name}
+            </p>
+          )}
+          <button
+            onClick={() =>
+              setMedia({ image: null, video: null, audio: null, file: null })
+            }
+            className="text-red-400 text-xs underline"
+          >
+            Remove
+          </button>
+        </div>
+      )}
 
       {/* Input */}
       <div className="flex items-center border-t border-gray-800 p-3 bg-gray-900">
